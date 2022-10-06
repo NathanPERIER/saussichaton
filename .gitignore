@@ -1,5 +1,19 @@
+# System Files
+*.swp
+.DS_Store
+Thumbs.db
+
+# IntelliJ IDEA
+.idea
+
 # Compiled class file
 *.class
+
+# Maven output
+/target
+
+# Maven thing
+*.iml
 
 # Log file
 *.log
