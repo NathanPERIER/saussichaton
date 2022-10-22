@@ -1,16 +1,18 @@
 package fr.nperier.saussichaton.engine;
 
+import java.util.Optional;
+
 public enum GameState {
     INIT(null);
 
-    private final Class<? extends StateAction> gsClass;
+    private final Class<? extends StateAction> saClass;
 
-    GameState(Class<? extends StateAction> gsClass) {
-        this.gsClass = gsClass;
+    GameState(Class<? extends StateAction> saClass) {
+        this.saClass = saClass;
     }
 
-    public Class<? extends StateAction> getGameState() {
-        return gsClass;
+    public Class<? extends StateAction> getActionClass() {
+        return saClass;
     }
 
 }
