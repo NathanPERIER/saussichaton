@@ -1,0 +1,89 @@
+{
+  "defuse": {
+    "name": "Defuse",
+    "given_at_start": 1,
+    "count_in_pile": {
+      "5": 1,
+      "*": 2
+    },
+    "insert_state": "POST_DEAL",
+    "draw_action": null
+  },
+  "attack": {
+    "name": "Attack",
+    "count_in_pile": {
+      "*": 4
+    },
+    "insert_state": "PRE_DEAL"
+  },
+  "favor": {
+    "name": "Favor",
+    "count_in_pile": {
+      "*": 4
+    },
+    "insert_state": "PRE_DEAL"
+  },
+  "nope": {
+    "name": "Nope",
+    "count_in_pile": {
+      "*": 5
+    },
+    "insert_state": "PRE_DEAL"
+  },
+  "shuffle": {
+    "name": "Shuffle",
+    "count_in_pile": {
+      "*": 4
+    },
+    "insert_state": "PRE_DEAL"
+  },
+  "skip": {
+    "name": "Skip",
+    "count_in_pile": {
+      "*": 4
+    },
+    "insert_state": "PRE_DEAL"
+  },
+  "see_the_future": {
+    "name": "See the Future",
+    "count_in_pile": {
+      "*": 4
+    },
+    "insert_state": "PRE_DEAL"
+  },
+  "hairy_potato_cat": {
+    "name": "Hairy Potato Cat",
+    "count_in_pile": {
+      "*": 4
+    },
+    "insert_state": "PRE_DEAL"
+  },
+  "cattermelon": {
+    "name": "Cattermelon",
+    "count_in_pile": {
+      "*": 4
+    },
+    "insert_state": "PRE_DEAL"
+  },
+  "rainbow_ralphing_cat": {
+    "name": "Rainbow Ralphing Cat",
+    "count_in_pile": {
+      "*": 4
+    },
+    "insert_state": "PRE_DEAL"
+  },
+  "tacocat": {
+    "name": "Taco Cat",
+    "count_in_pile": {
+      "*": 4
+    },
+    "insert_state": "PRE_DEAL"
+  },
+  "overweight_bikini_cat": {
+    "name": "Overweight Bikini Cat",
+    "count_in_pile": {
+      "*": 4
+    },
+    "insert_state": "PRE_DEAL"
+  }
+}
