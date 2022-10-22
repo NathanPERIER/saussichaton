@@ -1,9 +1,14 @@
 package fr.nperier.saussichaton.engine;
 
-import java.util.Optional;
+import fr.nperier.saussichaton.engine.states.begin.DealState;
+import fr.nperier.saussichaton.engine.states.begin.PostDealState;
+import fr.nperier.saussichaton.engine.states.begin.PreDealState;
 
 public enum GameState {
-    INIT(null);
+    INIT(null),
+    PRE_DEAL(PreDealState.class),
+    DEAL(DealState.class),
+    POST_DEAL(PostDealState.class);
 
     private final Class<? extends StateAction> saClass;
 
