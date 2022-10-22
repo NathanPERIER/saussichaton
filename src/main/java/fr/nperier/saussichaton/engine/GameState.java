@@ -1,9 +1,16 @@
 package fr.nperier.saussichaton.engine;
 
-import fr.nperier.saussichaton.injection.Resolvable;
+public enum GameState {
+    INIT(null);
 
-public abstract class GameState implements Resolvable {
+    private final Class<? extends StateAction> gsClass;
 
-    public abstract State execute();
+    GameState(Class<? extends StateAction> gsClass) {
+        this.gsClass = gsClass;
+    }
+
+    public Class<? extends StateAction> getGameState() {
+        return gsClass;
+    }
 
 }
