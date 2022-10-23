@@ -61,6 +61,14 @@ public class Player implements RingElement<Player> {
         }
     }
 
+    public void removeCards(final List<Integer> indexes) {
+        for(int i = hand.size()-1; i >= 0; i--) {
+            if(indexes.contains(i)) {
+                hand.remove(i);
+            }
+        }
+    }
+
     public Iterable<Player> getAllPlayers() {
         return new FullRingIterable<>(this);
     }
