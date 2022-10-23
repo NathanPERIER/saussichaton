@@ -1,5 +1,7 @@
 package fr.nperier.saussichaton.rules;
 
+import fr.nperier.saussichaton.engine.GameState;
+import fr.nperier.saussichaton.utils.collections.CollectionUtils;
 import fr.nperier.saussichaton.utils.collections.SearchTree;
 import fr.nperier.saussichaton.errors.ConfigurationException;
 import fr.nperier.saussichaton.rules.data.Card;
@@ -8,9 +10,12 @@ import fr.nperier.saussichaton.rules.loader.RulesLoader;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class CardPlayTree {
 
@@ -46,6 +51,19 @@ public class CardPlayTree {
         final List<Card> sorted = new ArrayList<>(cards);
         sorted.sort(Card::compareTo);
         return tree.get(sorted);
+    }
+
+    public List<Boolean> canPlay(final List<Card> cards, final GameState state) {
+        Set<Card> playable = new HashSet<>();
+        List<List<Card>> vectors = tree.listVectors(c -> c.getStates().contains(state));
+        for(List<Card> l : vectors) {
+            if(CollectionUtils.containsAll(cards, l)) {
+                playable.addAll(l);
+            }
+        }
+        return cards.stream()
+                .map(playable::contains)
+                .collect(Collectors.toList());
     }
 
 }
