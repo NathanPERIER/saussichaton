@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class SimpleGameLoader implements GameLoader {
 
-    private static Logger logger = LogManager.getLogger(SimpleGameLoader.class);
+    private static final Logger logger = LogManager.getLogger(SimpleGameLoader.class);
 
     private final int nPlayers;
     @Getter
