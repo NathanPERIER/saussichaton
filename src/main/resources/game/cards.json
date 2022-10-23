@@ -1,4 +1,15 @@
 {
+  "exploding_kitten": {
+    "name": "Exploding Kitten",
+    "count_in_pile": {
+      "5": 4,
+      "4": 3,
+      "3": 2,
+      "2": 1
+    },
+    "insert_state": "POST_DEAL",
+    "draw_action": "PrimeExplosionEffect"
+  },
   "defuse": {
     "name": "Defuse",
     "given_at_start": 1,
@@ -6,8 +17,7 @@
       "5": 1,
       "*": 2
     },
-    "insert_state": "POST_DEAL",
-    "draw_action": null
+    "insert_state": "POST_DEAL"
   },
   "attack": {
     "name": "Attack",
