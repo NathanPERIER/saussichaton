@@ -2,6 +2,7 @@ package fr.nperier.saussichaton.networking.helpers;
 
 import fr.nperier.saussichaton.engine.Player;
 import fr.nperier.saussichaton.networking.CommChannel;
+import fr.nperier.saussichaton.rules.data.Card;
 
 public class ChannelMessageOverlay {
 
@@ -30,6 +31,19 @@ public class ChannelMessageOverlay {
 
     public void gameStart() {
         channel.broadcast("The game is starting !");
+    }
+
+    public void dealingCards() {
+        channel.broadcast("Dealing cards");
+    }
+
+    public static void initialHand(Player player) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Your current hand is :");
+        for(Card c : player.getHand()) {
+            builder.append("\n - ").append(c);
+        }
+        player.getCommunicator().sendMessage(builder.toString());
     }
 
 }

@@ -20,7 +20,8 @@ public class Player implements RingElement<Player> {
 
     @Getter
     private final String name;
-    private final List<Card> cards;
+    @Getter
+    private final List<Card> hand;
     private int turnsToPlay;
     @Getter
     private int turnsPlayed;
@@ -31,7 +32,7 @@ public class Player implements RingElement<Player> {
     public Player(final String name, final Communicator comm) {
         this.name = name;
         this.comm = comm;
-        this.cards = new ArrayList<>();
+        this.hand = new ArrayList<>();
         this.turnsPlayed = 0;
         this.exploded = false;
         this.next = this;
@@ -47,12 +48,12 @@ public class Player implements RingElement<Player> {
     }
 
     public void giveCard(final Card c) {
-        this.cards.add(c);
+        this.hand.add(c);
     }
 
     public void giveCard(final Card c, int n) {
         for(int i = 0; i < n; i++) {
-            this.cards.add(c);
+            this.hand.add(c);
         }
     }
 
