@@ -10,9 +10,13 @@ public interface Communicator extends AutoCloseable {
 
     String prompt(final String message);
 
-    String choice(final ListPrompt prompt);
+    int promptInteger(final String message);
 
-    List<String> multiChoice(final ListPrompt prompt);
+    boolean promptYesNo(final String message);
+
+    <T> T choice(final ListPrompt<T> prompt);
+
+    <T> List<T> multiChoice(final ListPrompt<T> prompt);
 
     void interrupt();
 
