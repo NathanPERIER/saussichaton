@@ -12,6 +12,6 @@ public abstract class CardEffect implements Resolvable {
         this.player = player;
     }
 
-    public abstract GameState play();
+    public abstract GameState execute();
 
 }
