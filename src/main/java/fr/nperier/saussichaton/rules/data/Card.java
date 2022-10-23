@@ -44,6 +44,17 @@ public class Card {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if(obj == null) {
+            return false;
+        }
+        if(!(obj instanceof Card)) {
+            return false;
+        }
+        return ((Card)obj).id.equals(id);
+    }
+
+    @Override
     public String toString() {
         return this.getName();
     }
