@@ -22,7 +22,9 @@ public class Player implements RingElement<Player> {
     private final String name;
     @Getter
     private final List<Card> hand;
+    @Getter
     private int turnsToPlay;
+    private int remainingTurns;
     @Getter
     private int turnsPlayed;
     private boolean exploded;
@@ -34,6 +36,8 @@ public class Player implements RingElement<Player> {
         this.comm = comm;
         this.hand = new ArrayList<>();
         this.turnsPlayed = 0;
+        this.turnsToPlay = 0;
+        this.remainingTurns = 0;
         this.exploded = false;
         this.next = this;
         this.prev = this;
@@ -65,6 +69,13 @@ public class Player implements RingElement<Player> {
         return new RestOfRingIterable<>(this);
     }
 
+    /**
+     * Introduces the player in an existing ring for which we know one element,
+     * such as the current player will be as far as possible from this element
+     * according to the ring natural order
+     *
+     * @param right the player that will after the current player in the ring
+     */
     public void introduceAtLeft(Player right) {
         next = right;
         prev = next.prev;
@@ -72,10 +83,32 @@ public class Player implements RingElement<Player> {
         prev.next = this;
     }
 
-    public boolean hasExploded() {
-        return exploded;
+    // ===== Turns logic =====================================================================
+
+    public void addTurns(int n) {
+        this.turnsToPlay += n;
+        this.remainingTurns += n;
     }
 
+    public void endTurn() {
+        this.turnsPlayed++;
+        this.remainingTurns--;
+        if(this.remainingTurns == 0) {
+            this.turnsToPlay = 0;
+        }
+    }
+
+    public int getConsecutiveTurns() {
+        return turnsToPlay - remainingTurns;
+    }
+
+    // ===== Explosion logic =============================================================
+
+    /**
+     * Method to call when the player loses the game.
+     *
+     * @return the next player to play
+     */
     public Player explode() {
         if (this.exploded) {
             throw new GameLogicException("Player " + this + " has already exploded");
@@ -84,6 +117,10 @@ public class Player implements RingElement<Player> {
         prev.next = next;
         next.prev = prev;
         return next;
+    }
+
+    public boolean hasExploded() {
+        return exploded;
     }
 
     public Communicator getCommunicator() {
