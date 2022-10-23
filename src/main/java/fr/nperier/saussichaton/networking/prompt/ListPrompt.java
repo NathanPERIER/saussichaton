@@ -8,16 +8,16 @@ import java.util.List;
 @Getter
 public class ListPrompt<T> {
 
-    private final String message;
-    private final List<T> options;
+    protected final String message;
+    protected final List<T> options;
 
-    private ListPrompt(final String message, final List<T> options) {
+    protected ListPrompt(final String message, final List<T> options) {
         this.message = message;
         this.options = options;
     }
 
-    public static <T> ListPromptBuilder<T> create(final String message) {
-        return new ListPromptBuilder<>(message);
+    public static <T> Builder<T> create(final String message) {
+        return new Builder<>(message);
     }
 
     public int getNbOptions() {
@@ -28,23 +28,27 @@ public class ListPrompt<T> {
         return options.get(i);
     }
 
+    public boolean checkOption(int i) {
+        return i <= options.size() && i >= 0;
+    }
 
-    private static class ListPromptBuilder<T> {
+
+    public static class Builder<T> {
 
         private final String message;
         private final List<T> options;
 
-        public ListPromptBuilder(final String message) {
+        public Builder(final String message) {
             this.message = message;
             this.options = new ArrayList<>();
         }
 
-        public ListPromptBuilder<T> add(final T t) {
+        public Builder<T> add(final T t) {
             options.add(t);
             return this;
         }
 
-        public ListPromptBuilder<T> addAll(final Iterable<T> it) {
+        public Builder<T> addAll(final Iterable<T> it) {
             for(T t : it) {
                 options.add(t);
             }
