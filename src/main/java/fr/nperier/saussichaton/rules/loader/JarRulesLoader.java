@@ -7,6 +7,7 @@ import fr.nperier.saussichaton.rules.data.CardPlay;
 import fr.nperier.saussichaton.rules.dto.CardEntryDTO;
 import fr.nperier.saussichaton.rules.dto.CardPlayDTO;
 import fr.nperier.saussichaton.utils.io.JarUtils;
+import fr.nperier.saussichaton.utils.io.JsonEncoder;
 
 import java.util.AbstractMap;
 import java.util.List;
@@ -27,9 +28,9 @@ public class JarRulesLoader implements RulesLoader {
         this.extensions = extensions;
     }
 
-    private <T> T loadFromJar(String path) {
+    private <T> T loadFromJar(String path) throws ConfigurationException {
         try {
-            return JarUtils.readFromJar(path, new JarUtils.TypeRef<>());
+            return JarUtils.readFromJar(path, new JsonEncoder.TypeRef<>());
         } catch (JarUtils.JarException e) {
             throw new ConfigurationException("Problem occurred while loading resources from " + path, e);
         }
