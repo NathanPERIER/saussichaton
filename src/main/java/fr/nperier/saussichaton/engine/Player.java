@@ -34,6 +34,8 @@ public class Player implements RingElement<Player> {
         this.cards = new ArrayList<>();
         this.turnsPlayed = 0;
         this.exploded = false;
+        this.next = this;
+        this.prev = this;
     }
 
     public Player nextNeighbour() {
