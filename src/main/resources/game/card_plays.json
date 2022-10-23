@@ -1,0 +1,51 @@
+[
+  {
+    "cards": {
+      "defuse": 1
+    },
+    "states": ["PRIME_EXPLOSION"],
+    "action": "DefuseEffect"
+  },
+  {
+    "cards": {
+      "nope": 1
+    },
+    "states": ["PLAY_OVER", "TODO"],
+    "action": "NopeEffect"
+  },
+  {
+    "cards": {
+      "attack": 1
+    },
+    "states": ["PLAY"],
+    "action": "AttackEffect"
+  },
+  {
+    "cards": {
+      "favor": 1
+    },
+    "states": ["PLAY"],
+    "action": "FavorEffect"
+  },
+  {
+    "cards": {
+      "shuffle": 1
+    },
+    "states": ["PLAY"],
+    "action": "ShuffleEffect"
+  },
+  {
+    "cards": {
+      "skip": 1
+    },
+    "states": ["PLAY"],
+    "action": "SkipEffect"
+  },
+  {
+    "cards": {
+      "see_the_future": 1
+    },
+    "states": ["PLAY"],
+    "action": "PeekThreeEffect"
+  }
+]
