@@ -1,8 +1,8 @@
 package fr.nperier.saussichaton.networking;
 
 import fr.nperier.saussichaton.networking.prompt.ListPrompt;
-
-import java.util.List;
+import fr.nperier.saussichaton.networking.prompt.ListResult;
+import fr.nperier.saussichaton.networking.prompt.ListResults;
 
 public interface Communicator extends AutoCloseable {
 
@@ -14,9 +14,9 @@ public interface Communicator extends AutoCloseable {
 
     boolean promptYesNo(final String message);
 
-    <T> T choice(final ListPrompt<T> prompt);
+    <T> ListResult<T> choice(final ListPrompt<T> prompt);
 
-    <T> List<T> multiChoice(final ListPrompt<T> prompt);
+    <T> ListResults<T> multiChoice(final ListPrompt<T> prompt);
 
     void interrupt();
 
