@@ -1,5 +1,6 @@
 package fr.nperier.saussichaton.rules.loader;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import fr.nperier.saussichaton.errors.ConfigurationException;
 import fr.nperier.saussichaton.rules.CardRegistry;
 import fr.nperier.saussichaton.rules.data.Card;
@@ -28,9 +29,9 @@ public class JarRulesLoader implements RulesLoader {
         this.extensions = extensions;
     }
 
-    private <T> T loadFromJar(String path) throws ConfigurationException {
+    private <T> T loadFromJar(String path, final TypeReference<T> type) throws ConfigurationException {
         try {
-            return JarUtils.readFromJar(path, new JsonEncoder.TypeRef<>());
+            return JarUtils.readFromJar(path, type);
         } catch (JarUtils.JarException e) {
             throw new ConfigurationException("Problem occurred while loading resources from " + path, e);
         }
@@ -38,7 +39,7 @@ public class JarRulesLoader implements RulesLoader {
 
     @Override
     public Map<String, Card> loadCards() throws ConfigurationException {
-        final Map<String, CardEntryDTO> dtos = loadFromJar(CARDS_PATH);
+        final Map<String, CardEntryDTO> dtos = loadFromJar(CARDS_PATH, new TypeReference<>(){});
         return dtos.entrySet().stream()
                 .map(e -> new AbstractMap.SimpleEntry<>(
                         e.getKey(),
@@ -50,7 +51,7 @@ public class JarRulesLoader implements RulesLoader {
 
     @Override
     public List<CardPlay> loadCardPlays(CardRegistry cards) throws ConfigurationException {
-        final List<CardPlayDTO> dtos = loadFromJar(CARD_PLAYS_PATH);
+        final List<CardPlayDTO> dtos = loadFromJar(CARD_PLAYS_PATH, new TypeReference<>(){});
         return dtos.stream()
                 .map(dto -> new CardPlay(dto, cards))
                 .filter(c -> extensions.contains(c.getExtension()))
