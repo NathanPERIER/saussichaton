@@ -21,10 +21,12 @@ public class ChannelMessageOverlay {
     public void playerJoin(final Player player, final int nPlayers, final int maxPlayers) {
         channel.broadcastOthers(player + " joined the game (" + nPlayers + "/" + maxPlayers + ")", player.getName());
         StringBuilder builder = new StringBuilder();
-        builder.append("You joined the game (").append(nPlayers).append("/").append(maxPlayers)
-                .append(")\nThe other players are :");
-        for(Player p : player.getOtherPlayers()) {
-            builder.append("\n - ").append(p);
+        builder.append("You joined the game (").append(nPlayers).append("/").append(maxPlayers).append(")");
+        if(!player.isAlone()) {
+            builder.append("\nThe other players are :");
+            for(Player p : player.getOtherPlayers()) {
+                builder.append("\n - ").append(p);
+            }
         }
         player.getCommunicator().sendMessage(builder.toString());
     }
