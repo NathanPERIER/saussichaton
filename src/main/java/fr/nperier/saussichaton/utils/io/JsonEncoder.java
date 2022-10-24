@@ -20,11 +20,9 @@ public class JsonEncoder {
     public static <T> T decode(String s, final TypeReference<T> type) throws SerialiseException {
         try {
             return mapper.readValue(s, type);
-        } catch (JsonProcessingException e) {
+        } catch (JsonProcessingException | IllegalArgumentException e) {
             throw new SerialiseException("Error occurred while decoding a JSON object", e);
         }
     }
-
-    public static class TypeRef<T> extends TypeReference<T> { }
 
 }
