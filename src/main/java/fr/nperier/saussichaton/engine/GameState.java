@@ -9,7 +9,16 @@ public enum GameState {
     INIT(InitState.class),
     PRE_DEAL(PreDealState.class),
     DEAL(DealState.class),
-    POST_DEAL(PostDealState.class);
+    POST_DEAL(PostDealState.class),
+    PLAYER_SWITCH(null), // TODO
+    TURN_BEGIN(null),    // TODO
+    TURN_CHOICE(null),   // TODO
+    PLAY(null),          // TODO
+    PLAY_OVER(null),     // TODO
+    DRAW(null),          // TODO
+    PRIME_EXPLOSION(null), // TODO
+    EXPLODE(null),       // TODO
+    TURN_END(null);      // TODO
 
     private final Class<? extends StateAction> saClass;
 
