@@ -14,11 +14,11 @@ import java.util.stream.Collectors;
 public class CardPlayTree {
 
     private final SearchTree<Card, CardPlay> tree;
-    private final Map<GameState, List<List<Card>>> vectorsCache;
+    private final Map<GameState, Map<Card,Integer>> minCountsCache;
 
     public CardPlayTree() {
         tree = new SearchTree<>();
-        vectorsCache = new HashMap<>();
+        minCountsCache = new HashMap<>();
     }
 
     public static CardPlayTree create(final RulesLoader loader, final CardRegistry cards) throws ConfigurationException {
@@ -41,6 +41,19 @@ public class CardPlayTree {
         if(opt.isPresent()) {
             throw new ConfigurationException("Duplicate card combo detected");
         }
+        for(GameState state : entry.getStates()) {
+            Map<Card,Integer> minCounts = minCountsCache.get(state);
+            if(minCounts == null) {
+                minCountsCache.put(state, new HashMap<>(entry.getCards()));
+            } else {
+                for(Map.Entry<Card,Integer> e : entry.getCards().entrySet()) {
+                    Integer min = minCounts.get(e.getKey());
+                    if(min == null || min > e.getValue()) {
+                        minCounts.put(e.getKey(), e.getValue());
+                    }
+                }
+            }
+        }
     }
 
     public Optional<CardPlay> get(final Collection<Card> cards) {
@@ -50,23 +63,18 @@ public class CardPlayTree {
     }
 
     public List<Boolean> canPlay(final List<Card> cards, final GameState state) {
-        final Set<Card> playable = new HashSet<>();
-        final List<List<Card>> vectors;
-        if(vectorsCache.containsKey(state)) {
-            vectors = vectorsCache.get(state);
-        } else {
-            // This caching only works assuming we don't add new entries at runtime
-            vectors = tree.listVectors(c -> c.getStates().contains(state));
-            vectorsCache.put(state, vectors);
+        final Map<Card,Integer> counts = new HashMap<>();
+        final Map<Card,Integer> minCounts = minCountsCache.get(state);
+        if(minCounts == null) {
+            return cards.stream()
+                    .map(c -> false)
+                    .collect(Collectors.toList());
         }
-        // Complexity goes brrrrr
-        for(List<Card> l : vectors) {
-            if(CollectionUtils.containsAll(cards, l)) {
-                playable.addAll(l);
-            }
+        for(Card c : cards) {
+            counts.compute(c, (k,v) -> v == null ? 1 : v+1);
         }
         return cards.stream()
-                .map(playable::contains)
+                .map(c -> minCounts.containsKey(c) && counts.get(c) >= minCounts.get(c))
                 .collect(Collectors.toList());
     }
 
