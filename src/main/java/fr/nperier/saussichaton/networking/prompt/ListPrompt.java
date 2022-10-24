@@ -34,6 +34,10 @@ public class ListPrompt<T> {
         return i <= options.size() && i >= 0 && availability.get(i);
     }
 
+    public ListResult<T> getResult(final int i) {
+        return new ListResult<>(options.get(i), i);
+    }
+
 
     public static class Builder<T> {
 
