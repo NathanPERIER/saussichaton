@@ -117,14 +117,18 @@ public class TCPCommunicator implements Communicator {
     }
 
     @Override
-    public <T> ListResults<T> multiChoice(final ListPrompt<T> prompt) {
+    public <T> ListResults<T> multiChoice(final ListPrompt<T> prompt, final String noneValue) {
         write(CommunicationDTO.forType("prompt_list_multi")
                 .addField("message", prompt.getMessage())
                 .addField("options", prompt.getOptions())
-                .addField("available", prompt.getAvailability()));
+                .addField("available", prompt.getAvailability())
+                .addField("none_option", noneValue));
         while(true) {
             int[] response = read(new TypeReference<>(){});
-            if(Arrays.stream(response).allMatch(prompt::checkOption)) {
+            if(noneValue != null && response.length == 1 && response[0] == prompt.getNbOptions()) {
+                return new ListResults<>();
+            }
+            if(response.length > 0 && Arrays.stream(response).allMatch(prompt::checkOption)) {
                 write(DTO_OK);
                 return new ListResults<>(Arrays.stream(response)
                         .mapToObj(prompt::getResult)

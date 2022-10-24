@@ -10,8 +10,16 @@ public class ListResults<T> {
 
     private final List<ListResult<T>> results;
 
+    public ListResults() {
+        this.results = List.of();
+    }
+
     public ListResults(final List<ListResult<T>> results) {
         this.results = results;
+    }
+
+    public boolean isEmpty() {
+        return results.isEmpty();
     }
 
     public List<T> getValues() {

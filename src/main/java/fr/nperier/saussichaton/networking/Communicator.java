@@ -16,7 +16,11 @@ public interface Communicator extends AutoCloseable {
 
     <T> ListResult<T> choice(final ListPrompt<T> prompt);
 
-    <T> ListResults<T> multiChoice(final ListPrompt<T> prompt);
+    <T> ListResults<T> multiChoice(final ListPrompt<T> prompt, final String noneValue);
+
+    default <T> ListResults<T> multiChoice(final ListPrompt<T> prompt) {
+        return multiChoice(prompt, null);
+    }
 
     void interrupt();
 
