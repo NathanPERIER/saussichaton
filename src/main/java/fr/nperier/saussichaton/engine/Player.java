@@ -9,6 +9,7 @@ import fr.nperier.saussichaton.utils.collections.ring.RingElement;
 import lombok.Getter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Player implements RingElement<Player> {
@@ -62,10 +63,9 @@ public class Player implements RingElement<Player> {
     }
 
     public void removeCards(final List<Integer> indexes) {
-        for(int i = hand.size()-1; i >= 0; i--) {
-            if(indexes.contains(i)) {
-                hand.remove(i);
-            }
+        indexes.sort(Collections.reverseOrder());
+        for(int i : indexes) {
+            hand.remove(i);
         }
     }
 
