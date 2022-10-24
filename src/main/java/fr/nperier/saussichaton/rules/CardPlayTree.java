@@ -8,21 +8,17 @@ import fr.nperier.saussichaton.rules.data.Card;
 import fr.nperier.saussichaton.rules.data.CardPlay;
 import fr.nperier.saussichaton.rules.loader.RulesLoader;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class CardPlayTree {
 
     private final SearchTree<Card, CardPlay> tree;
+    private final Map<GameState, List<List<Card>>> vectorsCache;
 
     public CardPlayTree() {
         tree = new SearchTree<>();
+        vectorsCache = new HashMap<>();
     }
 
     public static CardPlayTree create(final RulesLoader loader, final CardRegistry cards) throws ConfigurationException {
@@ -54,8 +50,16 @@ public class CardPlayTree {
     }
 
     public List<Boolean> canPlay(final List<Card> cards, final GameState state) {
-        Set<Card> playable = new HashSet<>();
-        List<List<Card>> vectors = tree.listVectors(c -> c.getStates().contains(state));
+        final Set<Card> playable = new HashSet<>();
+        final List<List<Card>> vectors;
+        if(vectorsCache.containsKey(state)) {
+            vectors = vectorsCache.get(state);
+        } else {
+            // This caching only works assuming we don't add new entries at runtime
+            vectors = tree.listVectors(c -> c.getStates().contains(state));
+            vectorsCache.put(state, vectors);
+        }
+        // Complexity goes brrrrr
         for(List<Card> l : vectors) {
             if(CollectionUtils.containsAll(cards, l)) {
                 playable.addAll(l);
