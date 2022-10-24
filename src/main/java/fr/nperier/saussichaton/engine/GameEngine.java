@@ -4,8 +4,13 @@ import fr.nperier.saussichaton.GlobalConstants;
 import fr.nperier.saussichaton.engine.loader.GameLoader;
 import fr.nperier.saussichaton.injection.Resolver;
 import fr.nperier.saussichaton.networking.CommChannel;
+import fr.nperier.saussichaton.networking.helpers.ChannelMessageOverlay;
+import fr.nperier.saussichaton.networking.helpers.ChannelPromptOverlay;
 import fr.nperier.saussichaton.rules.CardPlayTree;
 import fr.nperier.saussichaton.rules.CardRegistry;
+import lombok.Getter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +18,10 @@ import java.util.Set;
 
 public class GameEngine {
 
+    private final Logger logger = LogManager.getLogger(GameEngine.class);
+
+    // Dependency injection
+    @Getter
     private final Resolver resolver;
 
     // Rules
@@ -25,9 +34,12 @@ public class GameEngine {
     // Players
     private final int nPlayers;
     private final Map<String, Player> players;
+    private Player currentPlayer;
 
     // Communication channel
     private final CommChannel commChannel;
+    private final ChannelMessageOverlay messages;
+    private final ChannelPromptOverlay prompts;
 
     // Game state
     private GameState currentState;
@@ -51,9 +63,13 @@ public class GameEngine {
         this.players = new HashMap<>();
         // Communication channel
         this.commChannel = new CommChannel();
+        this.messages = new ChannelMessageOverlay(this.commChannel);
+        this.prompts = new ChannelPromptOverlay(this.commChannel);
         this.resolver.addService(this.commChannel);
+        this.resolver.addService(this.messages);
+        this.resolver.addService(this.prompts);
         // Game state
-        this.currentState = GlobalConstants.BEGIN_STATE;
+        this.setCurrentState(GlobalConstants.BEGIN_STATE);
     }
 
     /**
@@ -61,11 +77,22 @@ public class GameEngine {
      * Caution : this method is not thread safe !
      * @return true if the player could be added, else false.
      */
-    public boolean addPlayer(final Player player) {
-        if(players.size() >= nPlayers || players.containsKey(player.getName())) {
+    public boolean addPlayer(final Player player) throws IllegalStateException {
+        if(players.size() >= nPlayers) {
+            throw new IllegalStateException("Maximum number of players has already been reached");
+        }
+        if (players.containsKey(player.getName())) {
             return false;
         }
+        logger.trace("Accepted player " + player);
+        if(currentPlayer == null) {
+            setCurrentPlayer(player);
+        } else {
+            player.introduceAtLeft(currentPlayer);
+        }
         players.put(player.getName(), player);
+        commChannel.addCommunicator(player.getName(), player.getCommunicator());
+        messages.playerJoin(player, players.size(), nPlayers);
         return true;
     }
 
@@ -74,7 +101,13 @@ public class GameEngine {
     }
 
     public void setCurrentPlayer(final Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
         this.resolver.setNamedObject("currentPlayer", currentPlayer);
+    }
+
+    private void setCurrentState(final GameState currentState) {
+        this.currentState = currentState;
+        this.resolver.setNamedObject("currentState", currentState);
     }
 
     public void setCardPlayer(final Player cardPlayer) {
@@ -82,5 +115,7 @@ public class GameEngine {
     }
 
     // TODO current card play
+
+    // TODO execute card
 
 }
