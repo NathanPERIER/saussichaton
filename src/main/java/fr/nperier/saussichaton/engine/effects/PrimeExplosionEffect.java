@@ -13,22 +13,22 @@ import java.util.Optional;
 public class PrimeExplosionEffect extends CardEffect {
 
     private final CommChannel channel;
-    private final Card currentCard;
+    private final Card drawnCard;
 
-    public PrimeExplosionEffect(final Player currentPlayer, final Card currentCard, final CommChannel channel) {
+    public PrimeExplosionEffect(final Player currentPlayer, final Card drawnCard, final CommChannel channel) {
         super(currentPlayer);
         this.channel = channel;
-        this.currentCard = currentCard;
+        this.drawnCard = drawnCard;
     }
 
     @Override
     public Optional<GameState> execute() {
         StringBuilder builder = new StringBuilder();
         builder.append(player).append(" drew a");
-        if("aeiouy".indexOf(Character.toLowerCase(currentCard.getName().charAt(0))) >= 0) {
+        if("aeiouy".indexOf(Character.toLowerCase(drawnCard.getName().charAt(0))) >= 0) {
             builder.append("n");
         }
-        builder.append(" ").append(currentCard).append(" !");
+        builder.append(" ").append(drawnCard).append(" !");
         channel.broadcastOthers(builder.toString(), player.getName());
         return Optional.of(GameState.PRIME_EXPLOSION);
     }
