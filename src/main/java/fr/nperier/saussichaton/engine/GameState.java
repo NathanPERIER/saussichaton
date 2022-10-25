@@ -6,6 +6,7 @@ import fr.nperier.saussichaton.engine.states.begin.PostDealState;
 import fr.nperier.saussichaton.engine.states.begin.PreDealState;
 import fr.nperier.saussichaton.engine.states.turn.PlayerSwitchState;
 import fr.nperier.saussichaton.engine.states.turn.TurnBeginState;
+import fr.nperier.saussichaton.engine.states.turn.TurnEndState;
 
 public enum GameState {
     INIT(InitState.class),
@@ -20,7 +21,7 @@ public enum GameState {
     DRAW(null),          // TODO
     PRIME_EXPLOSION(null), // TODO
     EXPLODE(null),       // TODO
-    TURN_END(null),      // TODO
+    TURN_END(TurnEndState.class),
     END(null);           // TODO
 
     private final Class<? extends StateAction> saClass;
