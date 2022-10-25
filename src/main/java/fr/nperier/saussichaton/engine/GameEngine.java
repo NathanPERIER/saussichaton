@@ -8,12 +8,15 @@ import fr.nperier.saussichaton.networking.helpers.ChannelMessageOverlay;
 import fr.nperier.saussichaton.networking.helpers.ChannelPromptOverlay;
 import fr.nperier.saussichaton.rules.CardPlayTree;
 import fr.nperier.saussichaton.rules.CardRegistry;
+import fr.nperier.saussichaton.rules.data.Card;
+import fr.nperier.saussichaton.rules.data.CardPlay;
 import lombok.Getter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 public class GameEngine {
@@ -96,6 +99,19 @@ public class GameEngine {
         return true;
     }
 
+    public Optional<CardEffect> initEffect(final Class<? extends CardEffect> clazz) {
+        if(clazz == null) {
+            return Optional.empty();
+        }
+        final CardEffect result = resolver.resolve(clazz);
+        if(result.isTargeted()) {
+            if(!result.target()) {
+                return Optional.empty();
+            }
+        }
+        return Optional.of(result);
+    }
+
     public Set<String> getPlayers() {
         return players.keySet();
     }
@@ -110,12 +126,16 @@ public class GameEngine {
         this.resolver.setNamedObject("currentState", currentState);
     }
 
+    public void setDrawnCard(final Card drawnCard) {
+        this.resolver.setNamedObject("drawnCard", drawnCard);
+    }
+
+    public void setPendingCardEffect(final CardEffect pendingCardEffect) {
+        this.resolver.setNamedObject("pendingCardEffect", pendingCardEffect);
+    }
+
     public void setCardPlayer(final Player cardPlayer) {
         this.resolver.setNamedObject("cardPlayer", cardPlayer);
     }
-
-    // TODO current card play
-
-    // TODO execute card
 
 }
