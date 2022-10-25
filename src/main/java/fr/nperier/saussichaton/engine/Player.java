@@ -28,7 +28,7 @@ public class Player implements RingElement<Player> {
     @Getter
     private int remainingTurns;
     @Getter
-    private int turnsPlayed;
+    private int totalTurnsPlayed;
     private boolean exploded;
 
     private final Communicator comm;
@@ -37,7 +37,7 @@ public class Player implements RingElement<Player> {
         this.name = name;
         this.comm = comm;
         this.hand = new ArrayList<>();
-        this.turnsPlayed = 0;
+        this.totalTurnsPlayed = 0;
         this.turnsToPlay = 0;
         this.remainingTurns = 0;
         this.exploded = false;
@@ -100,7 +100,7 @@ public class Player implements RingElement<Player> {
     }
 
     public void endTurn() {
-        this.turnsPlayed++;
+        this.totalTurnsPlayed++;
         this.remainingTurns--;
         if(this.remainingTurns == 0) {
             this.turnsToPlay = 0;
@@ -112,7 +112,7 @@ public class Player implements RingElement<Player> {
         this.remainingTurns = 0;
     }
 
-    public int getConsecutiveTurns() {
+    public int getTurnsPlayed() {
         return turnsToPlay - remainingTurns;
     }
 
