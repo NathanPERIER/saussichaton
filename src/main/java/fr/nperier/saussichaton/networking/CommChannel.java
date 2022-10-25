@@ -1,6 +1,7 @@
 package fr.nperier.saussichaton.networking;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CommChannel {
@@ -24,6 +25,12 @@ public class CommChannel {
     public void broadcastOthers(final String message, final String commName) {
         communicators.entrySet().stream()
                 .filter(e -> !commName.equals(e.getKey()))
+                .forEach(e -> e.getValue().sendMessage(message));
+    }
+
+    public void broadcastOthers(final String message, final List<String> commNames) {
+        communicators.entrySet().stream()
+                .filter(e -> !commNames.contains(e.getKey()))
                 .forEach(e -> e.getValue().sendMessage(message));
     }
 
