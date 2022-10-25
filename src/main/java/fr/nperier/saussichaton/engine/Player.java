@@ -106,6 +106,11 @@ public class Player implements RingElement<Player> {
         }
     }
 
+    public void clearTurns() {
+        this.turnsToPlay = 0;
+        this.remainingTurns = 0;
+    }
+
     public int getConsecutiveTurns() {
         return turnsToPlay - remainingTurns;
     }
