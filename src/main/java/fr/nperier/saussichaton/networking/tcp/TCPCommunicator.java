@@ -79,14 +79,24 @@ public class TCPCommunicator implements Communicator {
                 .addField("message", message));
         String response = read(new TypeReference<>(){});
         write(DTO_OK);
+        while(response.length() == 0) {
+            write(DTO_ERR);
+            response = read(new TypeReference<>(){});
+        }
         return response;
     }
 
     @Override
-    public int promptInteger(final String message) {
+    public int promptInteger(final String message, final int min, final int max) {
         write(CommunicationDTO.forType("prompt_integer")
-                .addField("message", message));
+                .addField("message", message)
+                .addField("min", min)
+                .addField("max", max));
         int response = read(new TypeReference<>(){});
+        while(response < min || response > max) {
+            write(DTO_ERR);
+            response = read(new TypeReference<>(){});
+        }
         write(DTO_OK);
         return response;
     }
@@ -95,7 +105,7 @@ public class TCPCommunicator implements Communicator {
     public boolean promptYesNo(final String message) {
         write(CommunicationDTO.forType("prompt_boolean")
                 .addField("message", message));
-        boolean response = read(new TypeReference<>(){});
+        final boolean response = read(new TypeReference<>(){});
         write(DTO_OK);
         return response;
     }

@@ -10,7 +10,7 @@ public interface Communicator extends AutoCloseable {
 
     String prompt(final String message);
 
-    int promptInteger(final String message);
+    int promptInteger(final String message, final int min, final int max);
 
     boolean promptYesNo(final String message);
 
