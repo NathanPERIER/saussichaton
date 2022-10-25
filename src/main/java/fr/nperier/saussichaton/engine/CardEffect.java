@@ -9,6 +9,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.util.Optional;
 
 public abstract class CardEffect implements Resolvable {
 
@@ -26,7 +27,11 @@ public abstract class CardEffect implements Resolvable {
         return true;
     }
 
-    public abstract GameState execute();
+    public abstract Optional<GameState> execute();
+
+    public Optional<GameState> cancel() {
+        return Optional.empty();
+    }
 
     public boolean isTargeted() {
         return this.getClass().isAnnotationPresent(Targeted.class);
