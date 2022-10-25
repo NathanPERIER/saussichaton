@@ -14,12 +14,16 @@ public class RacingThread<T> extends Thread {
         this.runner = runner;
     }
 
-    @Override
-    public void interrupt() {
+    public void interruptRacer() {
         if(!this.isInterrupted()) {
             logger.trace("Racer interrupted");
             runner.interrupt();
         }
+    }
+
+    @Override
+    public void interrupt() {
+        this.interruptRacer();
         super.interrupt();
     }
 }

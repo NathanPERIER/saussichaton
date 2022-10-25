@@ -32,8 +32,9 @@ public class ThreadRace<T> {
         logger.trace("Main thread starts waiting for the result");
         T res = lock.getValue();
         logger.trace("Main thread obtained the result, starts interrupting racers");
-        for(Thread t : threads) {
-            t.interrupt();
+        for(RacingThread<T> t : threads) {
+            // We interrupt the racer, but we let the thread exit properly
+            t.interruptRacer();
         }
         try {
             controlThread.join();
@@ -67,6 +68,7 @@ public class ThreadRace<T> {
                     logger.warn("Control thread interrupted while joining thread " + i);
                 }
             }
+            logger.trace("All threads have been joined, calling notify on the lock");
             synchronized(lock) {
                 lock.notifyAll();
             }
