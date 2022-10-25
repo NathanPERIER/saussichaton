@@ -4,6 +4,9 @@ import fr.nperier.saussichaton.engine.states.begin.DealState;
 import fr.nperier.saussichaton.engine.states.begin.InitState;
 import fr.nperier.saussichaton.engine.states.begin.PostDealState;
 import fr.nperier.saussichaton.engine.states.begin.PreDealState;
+import fr.nperier.saussichaton.engine.states.explosion.EndState;
+import fr.nperier.saussichaton.engine.states.explosion.ExplodeState;
+import fr.nperier.saussichaton.engine.states.explosion.PrimeExplosionState;
 import fr.nperier.saussichaton.engine.states.turn.PlayerSwitchState;
 import fr.nperier.saussichaton.engine.states.turn.TurnBeginState;
 import fr.nperier.saussichaton.engine.states.turn.TurnEndState;
@@ -19,10 +22,10 @@ public enum GameState {
     PLAY(null),          // TODO
     PLAY_OVER(null),     // TODO
     DRAW(null),          // TODO
-    PRIME_EXPLOSION(null), // TODO
-    EXPLODE(null),       // TODO
+    PRIME_EXPLOSION(PrimeExplosionState.class),
+    EXPLODE(ExplodeState.class),
     TURN_END(TurnEndState.class),
-    END(null);           // TODO
+    END(EndState.class);
 
     private final Class<? extends StateAction> saClass;
 

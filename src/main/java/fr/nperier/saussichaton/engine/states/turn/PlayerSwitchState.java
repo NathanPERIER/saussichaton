@@ -19,10 +19,13 @@ public class PlayerSwitchState extends StateAction {
     public GameState execute() {
         currentPlayer.clearTurns();
         final Player newPlayer = currentPlayer.nextNeighbour();
+        engine.setCurrentPlayer(newPlayer);
+        if(newPlayer.isAlone()) {
+            return GameState.END;
+        }
         if(newPlayer.getTurnsToPlay() == 0) {
             newPlayer.addTurns(1);
         }
-        engine.setCurrentPlayer(newPlayer);
         return GameState.TURN_BEGIN;
     }
 }
