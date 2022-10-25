@@ -8,7 +8,7 @@
       "2": 1
     },
     "insert_state": "POST_DEAL",
-    "draw_action": "PrimeExplosionEffect"
+    "draw_action": "prime_explosion"
   },
   "defuse": {
     "name": "Defuse",

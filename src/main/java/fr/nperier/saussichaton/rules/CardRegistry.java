@@ -35,8 +35,4 @@ public class CardRegistry implements Iterable<Card> {
         return Optional.ofNullable(entries.get(id));
     }
 
-    public boolean hasCard(final String id) {
-        return entries.containsKey(id);
-    }
-
 }

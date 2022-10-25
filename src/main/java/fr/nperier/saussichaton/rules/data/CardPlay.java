@@ -1,7 +1,9 @@
 package fr.nperier.saussichaton.rules.data;
 
+import fr.nperier.saussichaton.engine.CardEffect;
 import fr.nperier.saussichaton.engine.GameState;
 import fr.nperier.saussichaton.errors.ConfigurationException;
+import fr.nperier.saussichaton.rules.CardEffectRegistry;
 import fr.nperier.saussichaton.rules.CardRegistry;
 import fr.nperier.saussichaton.rules.dto.CardPlayDTO;
 import lombok.Getter;
@@ -21,7 +23,7 @@ public class CardPlay {
     private final String extension;
     private final Map<Card, Integer> cards;
     private final List<GameState> states;
-    private final String action;
+    private final Class<? extends CardEffect> action;
 
     public CardPlay(final CardPlayDTO dto, final CardRegistry cards) throws ConfigurationException {
         this.extension = dto.getExtension();
@@ -34,10 +36,12 @@ public class CardPlay {
                     return new AbstractMap.SimpleEntry<>(opt.get(), e.getValue());
                 })
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-        // TODO check if the states are valid
         this.states = dto.getStates();
-        // TODO use action registry
-        this.action = dto.getAction();
+        Optional<Class<? extends CardEffect>> opt = CardEffectRegistry.REGISTRY.getEffect(dto.getAction());
+        if(opt.isEmpty()) {
+            throw new ConfigurationException("Unknown card effect " + dto.getAction());
+        }
+        this.action = opt.get();
     }
 
 }
