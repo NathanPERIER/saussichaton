@@ -31,14 +31,6 @@ public class ChannelMessageOverlay {
         player.getCommunicator().sendMessage(builder.toString());
     }
 
-    public void gameStart() {
-        channel.broadcast("The game is starting !");
-    }
-
-    public void dealingCards() {
-        channel.broadcast("Dealing cards");
-    }
-
     public static void initialHand(Player player) {
         StringBuilder builder = new StringBuilder();
         builder.append("Your current hand is :");
