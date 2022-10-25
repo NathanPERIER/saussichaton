@@ -9,7 +9,9 @@ public class ThreadRaceAgainstTheClock<T> extends ThreadRace<T> {
 
     public ThreadRaceAgainstTheClock(final long delay, final T clockValue) {
         super();
-        this.addRacer(new ClockRacingRunnable<>(delay, clockValue));
+        final ClockRacingRunnable<T> clock = new ClockRacingRunnable<>(delay, clockValue);
+        this.addRacer(clock);
+        clock.setThread(this.threads.get(0));
     }
 
 
@@ -17,10 +19,15 @@ public class ThreadRaceAgainstTheClock<T> extends ThreadRace<T> {
 
         private final long delay;
         private final R value;
+        private Thread thread;
 
         public ClockRacingRunnable(final long delay, final R value) {
             this.delay = delay;
             this.value = value;
+        }
+
+        public void setThread(final Thread thread) {
+            this.thread = thread;
         }
 
         @Override
@@ -34,7 +41,9 @@ public class ThreadRaceAgainstTheClock<T> extends ThreadRace<T> {
         }
 
         @Override
-        public void interrupt() { }
+        public void interrupt() {
+            thread.interrupt();
+        }
     }
 
 }

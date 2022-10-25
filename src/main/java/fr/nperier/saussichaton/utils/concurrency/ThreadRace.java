@@ -10,9 +10,9 @@ public class ThreadRace<T> {
 
     private static final Logger logger = LogManager.getLogger(ThreadRace.class);
 
-    private final List<RacingThread<T>> threads;
-    private final ThreadLock<T> lock;
-    private final ControlRunnable<T> control;
+    protected final List<RacingThread<T>> threads;
+    protected final ThreadLock<T> lock;
+    protected final ControlRunnable<T> control;
 
     public ThreadRace() {
         threads = new ArrayList<>();
