@@ -1,5 +1,7 @@
 package fr.nperier.saussichaton.engine.states.explosion;
 
+import fr.nperier.saussichaton.engine.CardEffect;
+import fr.nperier.saussichaton.engine.GameEngine;
 import fr.nperier.saussichaton.engine.GameState;
 import fr.nperier.saussichaton.engine.Player;
 import fr.nperier.saussichaton.engine.StateAction;
@@ -18,13 +20,16 @@ public class PrimeExplosionState extends StateAction {
     private final ChannelPromptOverlay prompts;
     private final CardPlayTree cardPlays;
     private final GameState currentState;
+    private final GameEngine engine;
 
     public PrimeExplosionState(final Player currentPlayer, final ChannelPromptOverlay prompts,
-                               final CardPlayTree cardPlays, final GameState currentState) {
+                               final CardPlayTree cardPlays, final GameState currentState,
+                               final GameEngine engine) {
         this.currentPlayer = currentPlayer;
         this.prompts = prompts;
         this.cardPlays = cardPlays;
         this.currentState = currentState;
+        this.engine = engine;
     }
 
     @Override
@@ -39,8 +44,10 @@ public class PrimeExplosionState extends StateAction {
                 Optional<CardPlay> cardPlay = cardPlays.get(res.getValues());
                 if(cardPlay.isPresent()) {
                     currentPlayer.removeCards(res.getIndexes());
-                    // return cardPlay.get().getAction().execute();
-                    return GameState.TURN_END;
+                    Optional<CardEffect> effect = engine.initEffect(cardPlay.get().getAction());
+                    if(effect.isPresent()) {
+                        return effect.get().execute().orElse(GameState.TURN_END);
+                    }
                 }
             }
         }
