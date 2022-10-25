@@ -4,6 +4,7 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 @Getter
 public class ListPrompt<T> {
@@ -67,6 +68,14 @@ public class ListPrompt<T> {
             for(T t : it) {
                 options.add(t);
                 availability.add(true);
+            }
+            return this;
+        }
+
+        public Builder<T> addAll(final Iterable<T> it, final Predicate<T> pred) {
+            for(T t : it) {
+                options.add(t);
+                availability.add(pred.test(t));
             }
             return this;
         }
