@@ -25,6 +25,7 @@ public class Player implements RingElement<Player> {
     private final List<Card> hand;
     @Getter
     private int turnsToPlay;
+    @Getter
     private int remainingTurns;
     @Getter
     private int turnsPlayed;
