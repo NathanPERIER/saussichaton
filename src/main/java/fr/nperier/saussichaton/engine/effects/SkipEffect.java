@@ -6,6 +6,8 @@ import fr.nperier.saussichaton.engine.Player;
 import fr.nperier.saussichaton.networking.CommChannel;
 import fr.nperier.saussichaton.rules.CardEffectRegistry;
 
+import java.util.Optional;
+
 @CardEffectRegistry.RegisterEffect("skip")
 public class SkipEffect extends CardEffect {
 
@@ -17,9 +19,9 @@ public class SkipEffect extends CardEffect {
     }
 
     @Override
-    public GameState execute() {
+    public Optional<GameState> execute() {
         player.getCommunicator().sendMessage("You skipped this turn");
         channel.broadcastOthers(player + "skipped a turn", player.getName());
-        return GameState.TURN_END;
+        return Optional.of(GameState.TURN_END);
     }
 }

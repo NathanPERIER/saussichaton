@@ -8,6 +8,7 @@ import fr.nperier.saussichaton.networking.CommChannel;
 import fr.nperier.saussichaton.rules.data.Card;
 
 import java.util.List;
+import java.util.Optional;
 
 public class PeekEffect extends CardEffect {
 
@@ -24,7 +25,7 @@ public class PeekEffect extends CardEffect {
     }
 
     @Override
-    public GameState execute() {
+    public Optional<GameState> execute() {
         List<Card> top = drawPile.peek(nCards);
         StringBuilder builder = new StringBuilder();
         builder.append("The cards on top of the pile are :");
@@ -33,7 +34,7 @@ public class PeekEffect extends CardEffect {
         }
         player.getCommunicator().sendMessage(builder.toString());
         channel.broadcastOthers(player + " has seen the top " + nCards + " cards of the pile", player.getName());
-        return GameState.TURN_CHOICE;
+        return Optional.empty();
     }
 
 }

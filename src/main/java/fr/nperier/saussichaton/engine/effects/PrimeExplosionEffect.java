@@ -7,6 +7,8 @@ import fr.nperier.saussichaton.networking.CommChannel;
 import fr.nperier.saussichaton.rules.CardEffectRegistry;
 import fr.nperier.saussichaton.rules.data.Card;
 
+import java.util.Optional;
+
 @CardEffectRegistry.RegisterEffect("prime_explosion")
 public class PrimeExplosionEffect extends CardEffect {
 
@@ -20,7 +22,7 @@ public class PrimeExplosionEffect extends CardEffect {
     }
 
     @Override
-    public GameState execute() {
+    public Optional<GameState> execute() {
         StringBuilder builder = new StringBuilder();
         builder.append(player).append(" drew a");
         if("aeiouy".indexOf(Character.toLowerCase(currentCard.getName().charAt(0))) >= 0) {
@@ -28,7 +30,7 @@ public class PrimeExplosionEffect extends CardEffect {
         }
         builder.append(" ").append(currentCard).append(" !");
         channel.broadcastOthers(builder.toString(), player.getName());
-        return GameState.PRIME_EXPLOSION;
+        return Optional.of(GameState.PRIME_EXPLOSION);
     }
 
 }

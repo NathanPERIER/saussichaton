@@ -7,6 +7,8 @@ import fr.nperier.saussichaton.engine.Player;
 import fr.nperier.saussichaton.networking.CommChannel;
 import fr.nperier.saussichaton.rules.CardEffectRegistry;
 
+import java.util.Optional;
+
 @CardEffectRegistry.RegisterEffect("shuffle")
 public class ShuffleEffect extends CardEffect {
 
@@ -20,9 +22,9 @@ public class ShuffleEffect extends CardEffect {
     }
 
     @Override
-    public GameState execute() {
+    public Optional<GameState> execute() {
         drawPile.shuffle();
         channel.broadcast("The draw pile has been thoroughly shuffled");
-        return GameState.TURN_CHOICE;
+        return Optional.empty();
     }
 }
