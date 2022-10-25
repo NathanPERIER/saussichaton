@@ -5,6 +5,7 @@ import fr.nperier.saussichaton.engine.DrawPile;
 import fr.nperier.saussichaton.engine.GameState;
 import fr.nperier.saussichaton.engine.Player;
 import fr.nperier.saussichaton.engine.StateAction;
+import fr.nperier.saussichaton.networking.CommChannel;
 import fr.nperier.saussichaton.networking.helpers.ChannelMessageOverlay;
 import fr.nperier.saussichaton.rules.CardRegistry;
 
@@ -13,19 +14,19 @@ public class DealState extends StateAction {
     private final Player firstPlayer;
     private final DrawPile drawPile;
     private final CardRegistry cards;
-    private final ChannelMessageOverlay messages;
+    private final CommChannel channel;
 
     public DealState(final Player currentPlayer, final DrawPile drawPile, final CardRegistry cards,
-                     ChannelMessageOverlay messages) {
+                     final CommChannel channel) {
         this.firstPlayer = currentPlayer;
         this.drawPile = drawPile;
         this.cards = cards;
-        this.messages = messages;
+        this.channel = channel;
     }
 
     @Override
     public GameState execute() {
-        messages.dealingCards();
+        channel.broadcast("Dealing cards...");
         cards.stream()
                 .forEach(c -> {
                     if(c.getGivenAtStart() > 0) {
