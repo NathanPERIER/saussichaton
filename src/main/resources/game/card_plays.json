@@ -4,48 +4,48 @@
       "defuse": 1
     },
     "states": ["PRIME_EXPLOSION"],
-    "action": "DefuseEffect"
+    "action": "defuse"
   },
   {
     "cards": {
       "nope": 1
     },
-    "states": ["PLAY_OVER", "TODO"],
-    "action": "NopeEffect"
+    "states": ["PLAY", "PLAY_OVER"],
+    "action": "nope"
   },
   {
     "cards": {
       "attack": 1
     },
-    "states": ["PLAY"],
-    "action": "AttackEffect"
+    "states": ["TURN_CHOICE"],
+    "action": "attack"
   },
   {
     "cards": {
       "favor": 1
     },
-    "states": ["PLAY"],
-    "action": "FavorEffect"
+    "states": ["TURN_CHOICE"],
+    "action": "steal_chosen"
   },
   {
     "cards": {
       "shuffle": 1
     },
-    "states": ["PLAY"],
-    "action": "ShuffleEffect"
+    "states": ["TURN_CHOICE"],
+    "action": "shuffle"
   },
   {
     "cards": {
       "skip": 1
     },
-    "states": ["PLAY"],
-    "action": "SkipEffect"
+    "states": ["TURN_CHOICE"],
+    "action": "skip"
   },
   {
     "cards": {
       "see_the_future": 1
     },
-    "states": ["PLAY"],
-    "action": "PeekThreeEffect"
+    "states": ["TURN_CHOICE"],
+    "action": "peek_three"
   }
 ]
