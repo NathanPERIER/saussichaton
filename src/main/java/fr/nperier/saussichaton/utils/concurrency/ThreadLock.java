@@ -15,6 +15,10 @@ public class ThreadLock<T> {
         this.isSet = false;
     }
 
+    public synchronized boolean hasValue() {
+        return this.isSet;
+    }
+
     public synchronized void setValue(final T value) throws StopRacing {
         if(isSet) {
             throw new StopRacing();
