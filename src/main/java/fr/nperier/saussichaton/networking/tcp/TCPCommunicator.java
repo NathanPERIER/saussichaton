@@ -146,9 +146,11 @@ public class TCPCommunicator implements Communicator {
 
     @Override
     public void close() {
-        this.write(CommunicationDTO.forType("terminate"));
         try {
-            this.sock.close();
+            if(!this.sock.isClosed()) {
+                this.write(CommunicationDTO.forType("terminate"));
+                this.sock.close();
+            }
         } catch (IOException e) {
             logger.error("Got error while closing a communicator : ", e);
         }
