@@ -2,7 +2,8 @@
 import json
 import socket
 
-from typing import Iterable, Mapping, Any
+from collections import deque
+from typing import Iterable, Sequence, Mapping, Any
 
 
 class Socket :
@@ -11,6 +12,7 @@ class Socket :
 		self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		self.host = host
 		self.port = port
+		self.buffer: "deque[str]" = deque()
 
 	def __enter__(self) -> "Socket" :
 		self.s.connect((self.host, self.port))
@@ -22,13 +24,17 @@ class Socket :
 			return False
 	
 	def recv(self) -> "Mapping[str,Any]" :
+		if len(self.buffer) > 0 :
+			return json.loads(self.buffer.popleft())
 		try :
 			text = self._recv_partial()
 			while not text.endswith('\n') :
 				text += self._recv_partial()
 		except ConnectionClosed :
 			return {'type': 'disconnected'}
-		return json.loads(text)
+		splitted = text.split('\n')
+		self.buffer.extend(x for x in splitted[1:] if len(x) > 0)
+		return json.loads(splitted[0])
 	
 	def _recv_partial(self) -> str :
 		data = self.s.recv(1024)
