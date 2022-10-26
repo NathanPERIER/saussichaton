@@ -47,7 +47,7 @@ public class TCPCommunicator implements Communicator {
             while(true) {
                 final String response = this.reader.readLine();
                 if("INTERRUPTED".equals(response)) {
-                    logger.info("Read interrupted");
+                    logger.trace("Read interrupted");
                     throw new CommunicationInterrupt();
                 }
                 if(response == null) {
@@ -97,15 +97,6 @@ public class TCPCommunicator implements Communicator {
             write(DTO_ERR);
             response = read(new TypeReference<>(){});
         }
-        write(DTO_OK);
-        return response;
-    }
-
-    @Override
-    public boolean promptYesNo(final String message) {
-        write(CommunicationDTO.forType("prompt_boolean")
-                .addField("message", message));
-        final boolean response = read(new TypeReference<>(){});
         write(DTO_OK);
         return response;
     }

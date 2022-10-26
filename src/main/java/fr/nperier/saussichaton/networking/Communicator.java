@@ -12,8 +12,6 @@ public interface Communicator extends AutoCloseable {
 
     int promptInteger(final String message, final int min, final int max);
 
-    boolean promptYesNo(final String message);
-
     <T> ListResult<T> choice(final ListPrompt<T> prompt);
 
     <T> ListResults<T> multiChoice(final ListPrompt<T> prompt, final String noneValue);
