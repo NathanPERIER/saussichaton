@@ -7,6 +7,10 @@ import fr.nperier.saussichaton.engine.states.begin.PreDealState;
 import fr.nperier.saussichaton.engine.states.explosion.EndState;
 import fr.nperier.saussichaton.engine.states.explosion.ExplodeState;
 import fr.nperier.saussichaton.engine.states.explosion.PrimeExplosionState;
+import fr.nperier.saussichaton.engine.states.play.PlayChoiceState;
+import fr.nperier.saussichaton.engine.states.play.PlayEffectState;
+import fr.nperier.saussichaton.engine.states.play.PlayOverState;
+import fr.nperier.saussichaton.engine.states.turn.DrawState;
 import fr.nperier.saussichaton.engine.states.turn.PlayerSwitchState;
 import fr.nperier.saussichaton.engine.states.turn.TurnBeginState;
 import fr.nperier.saussichaton.engine.states.turn.TurnEndState;
@@ -18,10 +22,10 @@ public enum GameState {
     POST_DEAL(PostDealState.class),
     PLAYER_SWITCH(PlayerSwitchState.class),
     TURN_BEGIN(TurnBeginState.class),
-    PLAY_CHOICE(null),   // TODO
-    PLAY_OVER(null),     // TODO
-    PLAY_EFFECT(null),   // TODO
-    DRAW(null),          // TODO
+    PLAY_CHOICE(PlayChoiceState.class),
+    PLAY_OVER(PlayOverState.class),
+    PLAY_EFFECT(PlayEffectState.class),
+    DRAW(DrawState.class),
     PRIME_EXPLOSION(PrimeExplosionState.class),
     EXPLODE(ExplodeState.class),
     TURN_END(TurnEndState.class),
