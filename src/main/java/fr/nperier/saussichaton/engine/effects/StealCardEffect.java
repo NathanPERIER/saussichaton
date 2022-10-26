@@ -27,6 +27,7 @@ public abstract class StealCardEffect extends CardEffect {
                 .addAll(player.getOtherPlayers(), p -> (!p.hasExploded() && p.getHand().size() > 0))
                 .build();
         if(targetPrompt.getAvailability().stream().noneMatch(b -> b)) {
+            player.getCommunicator().sendMessage("You can't play this since there isn't any other player with cards");
             return false;
         }
         final ListResult<Player> target = player.getCommunicator().choice(targetPrompt);

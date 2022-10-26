@@ -16,18 +16,26 @@ public class ChannelPromptOverlay {
         this.channel = channel;
     }
 
-    public ListResults<Card> promptCards(final String message, final Player player) {
+    public static ListResults<Card> promptCards(final String message, final Player player) {
         ListPrompt<Card> prompt = ListPrompt.<Card>create(message)
                 .addAll(player.getHand())
                 .build();
         return player.getCommunicator().multiChoice(prompt);
     }
 
-    public ListResults<Card> promptCards(final String message, final Player player, final List<Boolean> canUse) {
+    public static ListResults<Card> promptCards(final String message, final Player player, final List<Boolean> canUse) {
         ListPrompt<Card> prompt = ListPrompt.<Card>create(message)
                 .addAll(player.getHand(), canUse)
                 .build();
         return player.getCommunicator().multiChoice(prompt);
+    }
+
+    public static ListResults<Card> promptCards(final String message, final Player player, final List<Boolean> canUse,
+                                         final String skipOption) {
+        ListPrompt<Card> prompt = ListPrompt.<Card>create(message)
+                .addAll(player.getHand(), canUse)
+                .build();
+        return player.getCommunicator().multiChoice(prompt, skipOption);
     }
 
 }
