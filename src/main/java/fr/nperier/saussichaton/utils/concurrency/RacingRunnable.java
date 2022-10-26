@@ -8,9 +8,18 @@ public abstract class RacingRunnable<T> implements Runnable {
     private static final Logger logger = LogManager.getLogger(RacingRunnable.class);
 
     protected ThreadLock<T> lock;
+    protected boolean finished;
+
+    public RacingRunnable() {
+        this.finished = false;
+    }
 
     public void giveLock(final ThreadLock<T> lock) {
         this.lock = lock;
+    }
+
+    public boolean hasFinished() {
+        return finished;
     }
 
     @Override

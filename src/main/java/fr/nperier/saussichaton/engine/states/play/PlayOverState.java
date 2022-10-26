@@ -67,6 +67,7 @@ public class PlayOverState extends StateAction {
         public void race() {
             try {
                 CardPlayResult res = prompt();
+                this.finished = true;
                 if(res.isImpossible() || res.isSkipped()) {
                     return;
                 }
