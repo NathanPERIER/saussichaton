@@ -29,8 +29,8 @@ public class DefuseEffect extends CardEffect {
     @Override
     public Optional<GameState> execute() {
         int index = player.getCommunicator().promptInteger("You successfully defused the bomb, where do you want to replace it ?",
-                0, drawPile.size() + 1);
-        drawPile.add(index, drawnCard);
+                1, drawPile.size() + 1);
+        drawPile.add(drawPile.size() - index + 1, drawnCard);
         channel.broadcastOthers(player + " defused the bomb and replaced it somewhere in the pile...", player.getName());
         return Optional.empty();
     }

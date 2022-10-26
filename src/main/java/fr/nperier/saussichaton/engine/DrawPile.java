@@ -21,14 +21,6 @@ public class DrawPile extends Stack<Card> {
         return this.pop();
     }
 
-    public List<Card> draw(int n) {
-        List<Card> res = new ArrayList<>();
-        for(int i = 0; i < n; i++) {
-            res.add(this.pop());
-        }
-        return res;
-    }
-
     public List<Card> peek(int n) {
         Stack<Card> tempStack = new Stack<>();
         for(int i = 0; i < n; i++) {
