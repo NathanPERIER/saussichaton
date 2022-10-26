@@ -3,6 +3,15 @@
 .DS_Store
 Thumbs.db
 
+# Python
+__pycache__
+*.so
+
+# VS Code
+.vscode/*
+!/client/.vscode/settings-reco.json
+
+
 # IntelliJ IDEA
 .idea
 
