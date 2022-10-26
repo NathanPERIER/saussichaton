@@ -21,6 +21,7 @@ public class ThreadRace<T> {
     }
 
     public void addRacer(final RacingRunnable<T> racer) {
+        racer.giveLock(lock);
         threads.add(new RacingThread<>(racer));
     }
 
