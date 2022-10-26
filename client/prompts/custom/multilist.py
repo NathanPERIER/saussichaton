@@ -9,7 +9,7 @@ class MultiListPrompt(Prompt) :
 		self.message: str = data['message']
 		self.options: "Sequence[str]" = data['options']
 		self.available: "Sequence[bool]" = data['available']
-		self.skip: "str | None" = data['noneValue']
+		self.skip: "str | None" = data['none_option']
 
 	def print(self) :
 		print(self.message)
@@ -26,14 +26,15 @@ class MultiListPrompt(Prompt) :
 	
 	def accept(self, response: str) -> "int | str | Iterable[Any] | Mapping[str,Any] | None" :
 		try :
-			res = [int(x) for x in response.split()]
+			res = [int(x)-1 for x in response.split()]
 		except ValueError :
 			return None
 		if len(res) == 0 :
 			return None
-		if len(res) == 1 and self.skip is not None and res[0] == len(self.options) + 1 :
+		if len(res) == 1 and self.skip is not None and res[0] == len(self.options) :
 			return res
 		for x in res :
-			if x <= 0 or x > len(self.options) :
+			if x < 0 or x >= len(self.options) or not self.available[x] :
+				print('nope')
 				return None
 			return res

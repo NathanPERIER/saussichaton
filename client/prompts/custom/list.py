@@ -23,8 +23,8 @@ class ListPrompt(Prompt) :
 	
 	def accept(self, response: str) -> "int | str | Iterable[Any] | Mapping[str,Any] | None" :
 		try :
-			res = int(response)
-			if res <= 0 or res > len(self.options) :
+			res = int(response) - 1
+			if res < 0 or res >= len(self.options) :
 				return None
 			return res
 		except ValueError :

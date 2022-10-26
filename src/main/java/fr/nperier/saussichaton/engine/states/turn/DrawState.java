@@ -37,6 +37,7 @@ public class DrawState extends StateAction {
             final Optional<GameState> nextState = effect.get().execute();
             return nextState.orElse(GameState.TURN_END);
         }
+        currentPlayer.giveCard(card);
         return GameState.TURN_END;
     }
 }
