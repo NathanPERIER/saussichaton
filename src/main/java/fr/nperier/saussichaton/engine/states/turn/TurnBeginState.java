@@ -26,7 +26,7 @@ public class TurnBeginState extends StateAction {
         }
         currentPlayer.getCommunicator().sendMessage("Your turn to play" + turnProgression);
         channel.broadcastOthers(currentPlayer + "'s turn to play" + turnProgression, currentPlayer.getName());
-        return GameState.TURN_CHOICE;
+        return GameState.PLAY_CHOICE;
     }
 
 }

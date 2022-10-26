@@ -18,9 +18,9 @@ public enum GameState {
     POST_DEAL(PostDealState.class),
     PLAYER_SWITCH(PlayerSwitchState.class),
     TURN_BEGIN(TurnBeginState.class),
-    TURN_CHOICE(null),   // TODO
-    PLAY(null),          // TODO
+    PLAY_CHOICE(null),   // TODO
     PLAY_OVER(null),     // TODO
+    PLAY_EFFECT(null),   // TODO
     DRAW(null),          // TODO
     PRIME_EXPLOSION(PrimeExplosionState.class),
     EXPLODE(ExplodeState.class),

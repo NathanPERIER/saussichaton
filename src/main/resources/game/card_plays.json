@@ -10,210 +10,210 @@
     "cards": {
       "nope": 1
     },
-    "states": ["PLAY", "PLAY_OVER"],
+    "states": ["PLAY_OVER"],
     "action": "nope"
   },
   {
     "cards": {
       "attack": 1
     },
-    "states": ["TURN_CHOICE"],
+    "states": ["PLAY_CHOICE"],
     "action": "attack"
   },
   {
     "cards": {
       "favor": 1
     },
-    "states": ["TURN_CHOICE"],
+    "states": ["PLAY_CHOICE"],
     "action": "steal_chosen"
   },
   {
     "cards": {
       "shuffle": 1
     },
-    "states": ["TURN_CHOICE"],
+    "states": ["PLAY_CHOICE"],
     "action": "shuffle"
   },
   {
     "cards": {
       "skip": 1
     },
-    "states": ["TURN_CHOICE"],
+    "states": ["PLAY_CHOICE"],
     "action": "skip"
   },
   {
     "cards": {
       "see_the_future": 1
     },
-    "states": ["TURN_CHOICE"],
+    "states": ["PLAY_CHOICE"],
     "action": "peek_three"
   },
   {
     "cards": {
       "defuse": 2
     },
-    "states": ["TURN_CHOICE"],
+    "states": ["PLAY_CHOICE"],
     "action": "steal_random"
   },
   {
     "cards": {
       "nope": 2
     },
-    "states": ["TURN_CHOICE"],
+    "states": ["PLAY_CHOICE"],
     "action": "steal_random"
   },
   {
     "cards": {
       "attack": 2
     },
-    "states": ["TURN_CHOICE"],
+    "states": ["PLAY_CHOICE"],
     "action": "steal_random"
   },
   {
     "cards": {
       "favor": 2
     },
-    "states": ["TURN_CHOICE"],
+    "states": ["PLAY_CHOICE"],
     "action": "steal_random"
   },
   {
     "cards": {
       "shuffle": 2
     },
-    "states": ["TURN_CHOICE"],
+    "states": ["PLAY_CHOICE"],
     "action": "steal_random"
   },
   {
     "cards": {
       "skip": 2
     },
-    "states": ["TURN_CHOICE"],
+    "states": ["PLAY_CHOICE"],
     "action": "steal_random"
   },
   {
     "cards": {
       "see_the_future": 2
     },
-    "states": ["TURN_CHOICE"],
+    "states": ["PLAY_CHOICE"],
     "action": "steal_random"
   },
   {
     "cards": {
       "hairy_potato_cat": 2
     },
-    "states": ["TURN_CHOICE"],
+    "states": ["PLAY_CHOICE"],
     "action": "steal_random"
   },
   {
     "cards": {
       "cattermelon": 2
     },
-    "states": ["TURN_CHOICE"],
+    "states": ["PLAY_CHOICE"],
     "action": "steal_random"
   },
   {
     "cards": {
       "rainbow_ralphing_cat": 2
     },
-    "states": ["TURN_CHOICE"],
+    "states": ["PLAY_CHOICE"],
     "action": "steal_random"
   },
   {
     "cards": {
       "tacocat": 2
     },
-    "states": ["TURN_CHOICE"],
+    "states": ["PLAY_CHOICE"],
     "action": "steal_random"
   },
   {
     "cards": {
       "overweight_bikini_cat": 2
     },
-    "states": ["TURN_CHOICE"],
+    "states": ["PLAY_CHOICE"],
     "action": "steal_random"
   },
   {
     "cards": {
       "defuse": 3
     },
-    "states": ["TURN_CHOICE"],
+    "states": ["PLAY_CHOICE"],
     "action": "steal_designated"
   },
   {
     "cards": {
       "nope": 3
     },
-    "states": ["TURN_CHOICE"],
+    "states": ["PLAY_CHOICE"],
     "action": "steal_designated"
   },
   {
     "cards": {
       "attack": 3
     },
-    "states": ["TURN_CHOICE"],
+    "states": ["PLAY_CHOICE"],
     "action": "steal_designated"
   },
   {
     "cards": {
       "favor": 3
     },
-    "states": ["TURN_CHOICE"],
+    "states": ["PLAY_CHOICE"],
     "action": "steal_designated"
   },
   {
     "cards": {
       "shuffle": 3
     },
-    "states": ["TURN_CHOICE"],
+    "states": ["PLAY_CHOICE"],
     "action": "steal_designated"
   },
   {
     "cards": {
       "skip": 3
     },
-    "states": ["TURN_CHOICE"],
+    "states": ["PLAY_CHOICE"],
     "action": "steal_designated"
   },
   {
     "cards": {
       "see_the_future": 3
     },
-    "states": ["TURN_CHOICE"],
+    "states": ["PLAY_CHOICE"],
     "action": "steal_designated"
   },
   {
     "cards": {
       "hairy_potato_cat": 3
     },
-    "states": ["TURN_CHOICE"],
+    "states": ["PLAY_CHOICE"],
     "action": "steal_designated"
   },
   {
     "cards": {
       "cattermelon": 3
     },
-    "states": ["TURN_CHOICE"],
+    "states": ["PLAY_CHOICE"],
     "action": "steal_designated"
   },
   {
     "cards": {
       "rainbow_ralphing_cat": 3
     },
-    "states": ["TURN_CHOICE"],
+    "states": ["PLAY_CHOICE"],
     "action": "steal_designated"
   },
   {
     "cards": {
       "tacocat": 3
     },
-    "states": ["TURN_CHOICE"],
+    "states": ["PLAY_CHOICE"],
     "action": "steal_designated"
   },
   {
     "cards": {
       "overweight_bikini_cat": 3
     },
-    "states": ["TURN_CHOICE"],
+    "states": ["PLAY_CHOICE"],
     "action": "steal_designated"
   }
 ]
