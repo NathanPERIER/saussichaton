@@ -7,18 +7,22 @@ import fr.nperier.saussichaton.rules.CardEffectRegistry;
 import fr.nperier.saussichaton.rules.CardRegistry;
 import fr.nperier.saussichaton.rules.dto.CardPlayDTO;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.AbstractMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Getter
 public class CardPlay {
 
-    private static final GameState[] POSSIBLE_STATES = {};
+    private static final Set<GameState> POSSIBLE_STATES = Set.of(
+            GameState.PLAY_CHOICE,
+            GameState.PLAY_OVER,
+            GameState.PRIME_EXPLOSION
+    );
 
     private final String extension;
     private final Map<Card, Integer> cards;
@@ -37,11 +41,20 @@ public class CardPlay {
                 })
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
         this.states = dto.getStates();
+        for(GameState state : this.states) {
+            if(!POSSIBLE_STATES.contains(state)) {
+                throw new ConfigurationException("Card play cannot occur at state " + state);
+            }
+        }
         Optional<Class<? extends CardEffect>> opt = CardEffectRegistry.REGISTRY.getEffect(dto.getAction());
         if(opt.isEmpty()) {
             throw new ConfigurationException("Unknown card effect " + dto.getAction());
         }
         this.action = opt.get();
+    }
+
+    public boolean canPlay(final GameState state) {
+        return states.contains(state);
     }
 
 }
