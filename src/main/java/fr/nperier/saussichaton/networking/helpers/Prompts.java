@@ -10,11 +10,15 @@ import fr.nperier.saussichaton.networking.prompt.ListResults;
 import fr.nperier.saussichaton.rules.CardPlayTree;
 import fr.nperier.saussichaton.rules.data.Card;
 import fr.nperier.saussichaton.rules.data.CardPlay;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 import java.util.Optional;
 
 public class Prompts {
+
+    private static final Logger logger = LogManager.getLogger(Prompts.class);
 
     public static CardPlayResult promptCardPlay(final String message, final Player player, final GameState state,
                                                 final CardPlayTree cardPlays, final GameEngine engine,
@@ -28,7 +32,7 @@ public class Prompts {
         final ListPrompt<Card> prompt = ListPrompt.<Card>create(message)
                 .addAll(player.getHand(), canUse)
                 .build();
-        while(!res.isCompleted() || !res.isSkipped()) {
+        while(!res.isCompleted() && !res.isSkipped()) {
             final ListResults<Card> cards = player.getCommunicator().multiChoice(prompt, skipOption);
             if(cards.isEmpty()) {
                 res.setSkipped();
@@ -37,12 +41,13 @@ public class Prompts {
             res.setIndexes(cards.getIndexes());
             final Optional<CardPlay> cardPlay = cardPlays.get(cards.getValues());
             if(cardPlay.isEmpty()) {
-                player.getCommunicator().sendMessage("You can't do that now");
+                player.getCommunicator().sendMessage("This is not a valid action");
                 continue;
             }
             res.setCardPlay(cardPlay.get());
-            if(cardPlay.get().canPlay(state)) {
-                player.getCommunicator().sendMessage("This is not a valid action");
+            if(!cardPlay.get().canPlay(state)) {
+                logger.debug("Rejected card play at state " + state + ", expected one of " + cardPlay.get().getStates());
+                player.getCommunicator().sendMessage("You can't do that now");
                 continue;
             }
             final Optional<CardEffect> effect = engine.initEffect(cardPlay.get().getAction());

@@ -35,7 +35,7 @@ public class ListPrompt<T> {
     }
 
     public boolean checkOption(int i) {
-        return i <= options.size() && i >= 0 && availability.get(i);
+        return i < options.size() && i >= 0 && availability.get(i);
     }
 
     public ListResult<T> getResult(final int i) {

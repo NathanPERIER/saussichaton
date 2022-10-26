@@ -80,6 +80,7 @@ public class PlayOverState extends StateAction {
                     engine.setCardPlayer(player);
                     lock.setValue(GameState.PLAY_OVER);
                     channel.broadcastOthers(player + " played " + res.getName(), player.getName());
+                    player.getCommunicator().sendMessage(res.getName() + " !");
                 }
             } catch(CommunicationInterrupt e) {
                 logger.trace("Racing runnable communication was interrupted");

@@ -35,6 +35,7 @@ public class ThreadRaceAgainstTheClock<T> extends ThreadRace<T> {
             try {
                 Thread.sleep(delay);
                 this.lock.setValue(value);
+                logger.trace("Clock thread won");
             } catch(InterruptedException e) {
                 logger.debug("Clock running thread interrupted");
             }

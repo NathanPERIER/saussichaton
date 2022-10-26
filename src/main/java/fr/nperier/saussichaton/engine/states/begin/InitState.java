@@ -5,7 +5,6 @@ import fr.nperier.saussichaton.engine.GameState;
 import fr.nperier.saussichaton.engine.Player;
 import fr.nperier.saussichaton.engine.StateAction;
 import fr.nperier.saussichaton.networking.CommChannel;
-import fr.nperier.saussichaton.networking.helpers.ChannelMessageOverlay;
 
 import java.util.concurrent.ThreadLocalRandom;
 

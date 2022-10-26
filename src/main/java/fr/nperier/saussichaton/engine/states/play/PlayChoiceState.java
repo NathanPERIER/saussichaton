@@ -34,7 +34,7 @@ public class PlayChoiceState extends StateAction {
                 "End turn and draw card"
         );
         if(res.isImpossible()) {
-            currentPlayer.getCommunicator().sendMessage("You don't have any cards, so your only option is to draw");
+            currentPlayer.getCommunicator().sendMessage("You can't do anything, your only option is to draw");
             return GameState.DRAW;
         }
         if(res.isSkipped()) {

@@ -113,6 +113,7 @@ public class TCPCommunicator implements Communicator {
                 write(DTO_OK);
                 return prompt.getResult(response);
             }
+            logger.debug("Invalid choice response : " + response);
             write(DTO_ERR);
         }
     }
@@ -135,6 +136,7 @@ public class TCPCommunicator implements Communicator {
                         .mapToObj(prompt::getResult)
                         .collect(Collectors.toList()));
             }
+            logger.debug("Invalid multi choice response " + Arrays.toString(response));
             write(DTO_ERR);
         }
     }

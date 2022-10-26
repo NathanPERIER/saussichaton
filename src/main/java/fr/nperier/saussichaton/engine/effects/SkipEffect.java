@@ -21,7 +21,7 @@ public class SkipEffect extends CardEffect {
     @Override
     public Optional<GameState> execute() {
         player.getCommunicator().sendMessage("You skipped this turn");
-        channel.broadcastOthers(player + "skipped a turn", player.getName());
+        channel.broadcastOthers(player + " skipped a turn", player.getName());
         return Optional.of(GameState.TURN_END);
     }
 }
