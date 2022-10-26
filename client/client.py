@@ -10,7 +10,7 @@ from threading import Thread
 def main(host: str, port: int) :
     with Socket('localhost', 6969) as s :
         reader_thread = Thread(target = lambda : reader.run(s), daemon=True)
-        reader_thread.run()
+        reader_thread.start()
         receiver.run(s)
 
 def usage(retcode: int) :
