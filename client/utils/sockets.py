@@ -16,8 +16,10 @@ class Socket :
 		self.s.connect((self.host, self.port))
 		return self
 	
-	def __exit__(self) :
+	def __exit__(self, exc_type, exc_value, exc_traceback) :
 		self.s.__exit__()
+		if exc_type is not None :
+			return False
 	
 	def recv(self) -> "Mapping[str,Any]" :
 		try :
