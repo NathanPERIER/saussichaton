@@ -83,8 +83,7 @@ public class Server {
 
         GameEngine engine = loadGame(parser);
 
-        // engine.start();
-        engine.getResolver().getService(CommChannel.class).broadcast("Game should start now");
+        engine.start();
     }
 
     private static GameEngine loadGame(final ArgsParser args) {

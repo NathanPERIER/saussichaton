@@ -5,11 +5,9 @@ import fr.nperier.saussichaton.engine.loader.GameLoader;
 import fr.nperier.saussichaton.injection.Resolver;
 import fr.nperier.saussichaton.networking.CommChannel;
 import fr.nperier.saussichaton.networking.helpers.ChannelMessageOverlay;
-import fr.nperier.saussichaton.networking.helpers.ChannelPromptOverlay;
 import fr.nperier.saussichaton.rules.CardPlayTree;
 import fr.nperier.saussichaton.rules.CardRegistry;
 import fr.nperier.saussichaton.rules.data.Card;
-import fr.nperier.saussichaton.rules.data.CardPlay;
 import lombok.Getter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -42,7 +40,6 @@ public class GameEngine {
     // Communication channel
     private final CommChannel commChannel;
     private final ChannelMessageOverlay messages;
-    private final ChannelPromptOverlay prompts;
 
     // Game state
     private GameState currentState;
@@ -67,10 +64,7 @@ public class GameEngine {
         // Communication channel
         this.commChannel = new CommChannel();
         this.messages = new ChannelMessageOverlay(this.commChannel);
-        this.prompts = new ChannelPromptOverlay(this.commChannel);
         this.resolver.addService(this.commChannel);
-        this.resolver.addService(this.messages);
-        this.resolver.addService(this.prompts);
         // Game state
         this.setCurrentState(GlobalConstants.BEGIN_STATE);
     }
@@ -98,6 +92,23 @@ public class GameEngine {
         messages.playerJoin(player, players.size(), nPlayers);
         return true;
     }
+
+    public void start() {
+        try {
+            while(this.currentState != null) {
+                logger.trace("Entering state " + currentState + " (" + currentState.getActionClass() + ")");
+                StateAction action = resolver.resolve(currentState.getActionClass());
+                GameState nextState = action.execute();
+                this.setCurrentState(nextState);
+            }
+        } catch(Exception e) {
+            logger.fatal("Uncaught exception terminated the game", e);
+        }
+        for(Player p : players.values()) {
+            p.getCommunicator().close();
+        }
+    }
+
 
     public Optional<CardEffect> initEffect(final Class<? extends CardEffect> clazz) {
         if(clazz == null) {

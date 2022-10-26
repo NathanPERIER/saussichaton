@@ -12,4 +12,6 @@ public class GlobalConstants {
 
     public static final String BASE_EXTENSION = "base";
 
+    public static final long NOPE_CLOCK_DELAY_MILLIS = 5000;
+
 }
