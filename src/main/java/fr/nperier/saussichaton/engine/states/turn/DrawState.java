@@ -29,6 +29,7 @@ public class DrawState extends StateAction {
     @Override
     public GameState execute() {
         final Card card = pile.draw();
+        engine.setDrawnCard(card);
         currentPlayer.getCommunicator().sendMessage("You drew " + card);
         final Optional<CardEffect> effect = engine.initEffect(card.getDrawAction());
         if(effect.isPresent()) {
