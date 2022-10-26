@@ -1,6 +1,7 @@
 
 from prompts.base import Prompt
 
+import sys
 from typing import Any, Iterable, Mapping
 
 class IntPrompt(Prompt) :
@@ -12,6 +13,7 @@ class IntPrompt(Prompt) :
 
 	def print(self) :
 		print(f"{self.message} ({self.min}..{self.max}) > ", end="")
+		sys.stdout.flush()
 	
 	def accept(self, response: str) -> "int | str | Iterable[Any] | Mapping[str,Any] | None" :
 		try :

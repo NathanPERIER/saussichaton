@@ -1,6 +1,7 @@
 
 from prompts.base import Prompt
 
+import sys
 from typing import Any, Iterable, Sequence, Mapping
 
 class ListPrompt(Prompt) :
@@ -20,6 +21,7 @@ class ListPrompt(Prompt) :
 			else :
 				print(f"\033[30;1m{i}. {opt}\033[0m")
 		print('> ', end='')
+		sys.stdout.flush()
 	
 	def accept(self, response: str) -> "int | str | Iterable[Any] | Mapping[str,Any] | None" :
 		try :

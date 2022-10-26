@@ -25,7 +25,8 @@ class Socket :
 	
 	def recv(self) -> "Mapping[str,Any]" :
 		if len(self.buffer) > 0 :
-			return json.loads(self.buffer.popleft())
+			last = self.buffer.popleft()
+			return json.loads(last)
 		try :
 			text = self._recv_partial()
 			while not text.endswith('\n') :

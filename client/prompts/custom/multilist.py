@@ -1,6 +1,7 @@
 
 from prompts.base import Prompt
 
+import sys
 from typing import Any, Iterable, Sequence, Mapping
 
 class MultiListPrompt(Prompt) :
@@ -23,6 +24,8 @@ class MultiListPrompt(Prompt) :
 		if self.skip is not None :
 			print(f"{i+1}. {self.skip}")
 		print('> ', end='')
+		sys.stdout.flush()
+
 	
 	def accept(self, response: str) -> "int | str | Iterable[Any] | Mapping[str,Any] | None" :
 		try :

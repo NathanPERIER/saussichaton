@@ -1,6 +1,7 @@
 
 from prompts.base import Prompt
 
+import sys
 from typing import Any, Iterable, Mapping
 
 class StringPrompt(Prompt) :
@@ -9,7 +10,8 @@ class StringPrompt(Prompt) :
 		self.message: str = data['message']
 
 	def print(self) :
-		print(f"{self.message}\n > ", end="")
+		print(f"{self.message}\n> ", end="")
+		sys.stdout.flush()
 	
 	def accept(self, response: str) -> "int | str | Iterable[Any] | Mapping[str,Any] | None" :
 		if len(response) == 0 :
