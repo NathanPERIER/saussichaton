@@ -5,6 +5,7 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @Getter
 public class ListPrompt<T> {
@@ -27,8 +28,10 @@ public class ListPrompt<T> {
         return options.size();
     }
 
-    public T getOption(final int i) {
-        return options.get(i);
+    public List<String> getOptionsText() {
+        return options.stream()
+                .map(T::toString)
+                .collect(Collectors.toList());
     }
 
     public boolean checkOption(int i) {

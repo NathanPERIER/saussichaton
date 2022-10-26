@@ -105,7 +105,7 @@ public class TCPCommunicator implements Communicator {
     public <T> ListResult<T> choice(final ListPrompt<T> prompt) {
         write(CommunicationDTO.forType("prompt_list")
                 .addField("message", prompt.getMessage())
-                .addField("options", prompt.getOptions())
+                .addField("options", prompt.getOptionsText())
                 .addField("available", prompt.getAvailability()));
         while(true) {
             int response = read(new TypeReference<>(){});
@@ -121,7 +121,7 @@ public class TCPCommunicator implements Communicator {
     public <T> ListResults<T> multiChoice(final ListPrompt<T> prompt, final String noneValue) {
         write(CommunicationDTO.forType("prompt_list_multi")
                 .addField("message", prompt.getMessage())
-                .addField("options", prompt.getOptions())
+                .addField("options", prompt.getOptionsText())
                 .addField("available", prompt.getAvailability())
                 .addField("none_option", noneValue));
         while(true) {
