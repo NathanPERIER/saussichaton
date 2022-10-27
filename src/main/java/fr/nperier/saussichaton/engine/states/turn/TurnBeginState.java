@@ -5,6 +5,9 @@ import fr.nperier.saussichaton.engine.Player;
 import fr.nperier.saussichaton.engine.StateAction;
 import fr.nperier.saussichaton.networking.CommChannel;
 
+/**
+ * State that occurs at the beginning of a turn. Mainly used for sending messages to the clients.
+ */
 public class TurnBeginState extends StateAction {
 
     private final Player currentPlayer;

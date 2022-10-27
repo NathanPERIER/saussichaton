@@ -5,6 +5,9 @@ import fr.nperier.saussichaton.engine.Player;
 import fr.nperier.saussichaton.engine.StateAction;
 import fr.nperier.saussichaton.networking.CommChannel;
 
+/**
+ * State during which a player explodes.
+ */
 public class ExplodeState extends StateAction {
 
     private final Player currentPlayer;

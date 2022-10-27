@@ -1,21 +1,17 @@
 package fr.nperier.saussichaton.engine.states.explosion;
 
-import fr.nperier.saussichaton.engine.CardEffect;
 import fr.nperier.saussichaton.engine.GameEngine;
 import fr.nperier.saussichaton.engine.GameState;
 import fr.nperier.saussichaton.engine.Player;
 import fr.nperier.saussichaton.engine.StateAction;
-import fr.nperier.saussichaton.networking.CommChannel;
 import fr.nperier.saussichaton.networking.helpers.CardPlayResult;
 import fr.nperier.saussichaton.networking.helpers.Prompts;
-import fr.nperier.saussichaton.networking.prompt.ListResults;
 import fr.nperier.saussichaton.rules.CardPlayTree;
-import fr.nperier.saussichaton.rules.data.Card;
-import fr.nperier.saussichaton.rules.data.CardPlay;
 
-import java.util.List;
-import java.util.Optional;
-
+/**
+ * State that occurs after a player has drawn an exploding kitten card.
+ * Prompts the player for a (defuse) card if available, else make them explode.
+ */
 public class PrimeExplosionState extends StateAction {
 
     private final Player currentPlayer;
@@ -41,7 +37,7 @@ public class PrimeExplosionState extends StateAction {
 
     @Override
     public GameState execute() {
-        CardPlayResult res = prompt();
+        final CardPlayResult res = prompt();
         if(res.isImpossible()) {
             return GameState.EXPLODE;
         }

@@ -5,6 +5,10 @@ import fr.nperier.saussichaton.engine.GameState;
 import fr.nperier.saussichaton.engine.Player;
 import fr.nperier.saussichaton.engine.StateAction;
 
+/**
+ * State during which the next player becomes the active player (after the current player finished all their turns).
+ * This state is also responsible for checking if there is only one player remaining, in which case they won the game.
+ */
 public class PlayerSwitchState extends StateAction {
 
     private final Player currentPlayer;

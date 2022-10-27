@@ -6,9 +6,12 @@ import fr.nperier.saussichaton.engine.GameState;
 import fr.nperier.saussichaton.engine.Player;
 import fr.nperier.saussichaton.engine.StateAction;
 import fr.nperier.saussichaton.networking.CommChannel;
-import fr.nperier.saussichaton.networking.helpers.ChannelMessageOverlay;
 import fr.nperier.saussichaton.rules.CardRegistry;
+import fr.nperier.saussichaton.rules.data.Card;
 
+/**
+ * State during which we deal the cards to the players.
+ */
 public class DealState extends StateAction {
 
     private final Player firstPlayer;
@@ -41,7 +44,12 @@ public class DealState extends StateAction {
             }
         }
         for(Player player : firstPlayer.getAllPlayers()) {
-            ChannelMessageOverlay.initialHand(player);
+            StringBuilder builder = new StringBuilder();
+            builder.append("Your current hand is :");
+            for(Card c : player.getHand()) {
+                builder.append("\n - ").append(c);
+            }
+            player.getCommunicator().sendMessage(builder.toString());
         }
         return GameState.POST_DEAL;
     }

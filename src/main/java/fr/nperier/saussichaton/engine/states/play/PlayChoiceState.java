@@ -8,8 +8,16 @@ import fr.nperier.saussichaton.networking.CommChannel;
 import fr.nperier.saussichaton.networking.helpers.CardPlayResult;
 import fr.nperier.saussichaton.networking.helpers.Prompts;
 import fr.nperier.saussichaton.rules.CardPlayTree;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+/**
+ * State that enables the player to play cards during their turn.
+ * Automatically skips to the drawing state if the player can't play.
+ */
 public class PlayChoiceState extends StateAction {
+
+    private static final Logger logger = LogManager.getLogger(PlayChoiceState.class);
 
     private final Player currentPlayer;
     private final CardPlayTree cardPlays;
@@ -33,15 +41,20 @@ public class PlayChoiceState extends StateAction {
                 currentPlayer, currentState, cardPlays, engine,
                 "End turn and draw card"
         );
-        if(res.isImpossible()) {
+        if(res.isImpossible()) { // If player can't do anything
+            try {
+                Thread.sleep(2000); // Sleep for readability
+            } catch(InterruptedException e) {
+                logger.warn("Got unexpectedly interrupted", e);
+            }
             currentPlayer.getCommunicator().sendMessage("You can't do anything, your only option is to draw");
             return GameState.DRAW;
         }
-        if(res.isSkipped()) {
+        if(res.isSkipped()) { // If player wants to end turn
             return GameState.DRAW;
         }
         currentPlayer.removeCards(res.getIndexes());
-        engine.setPendingCardEffect(res.getEffect());
+        engine.setPendingCardEffect(res.getEffect()); // Stages the card effect for execution (an maybe nopes)
         engine.setCardPlayer(currentPlayer);
         channel.broadcastOthers(currentPlayer + " plays " + res.getName(), currentPlayer.getName());
         return GameState.PLAY_OVER;

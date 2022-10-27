@@ -8,6 +8,9 @@ import fr.nperier.saussichaton.networking.CommChannel;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * State that randomly picks the first player.
+ */
 public class InitState extends StateAction {
 
     private final CommChannel channel;
@@ -30,6 +33,7 @@ public class InitState extends StateAction {
         }
         channel.broadcastOthers(nextPlayer + " is the first to go", nextPlayer.getName());
         nextPlayer.getCommunicator().sendMessage("You are the first to go");
+        // We set the previous neighbour because then the PlayerSwitchState will select the right player.
         engine.setCurrentPlayer(nextPlayer.prevNeighbour());
         return GameState.PRE_DEAL;
     }

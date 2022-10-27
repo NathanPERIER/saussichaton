@@ -5,6 +5,9 @@ import fr.nperier.saussichaton.engine.GameState;
 import fr.nperier.saussichaton.engine.StateAction;
 import fr.nperier.saussichaton.rules.CardRegistry;
 
+/**
+ * Generic action that adds card to the draw pile.
+ */
 public abstract class AddToPileAState extends StateAction {
 
     protected final DrawPile drawPile;

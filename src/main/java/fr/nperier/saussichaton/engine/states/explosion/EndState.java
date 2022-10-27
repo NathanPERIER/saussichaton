@@ -5,6 +5,9 @@ import fr.nperier.saussichaton.engine.Player;
 import fr.nperier.saussichaton.engine.StateAction;
 import fr.nperier.saussichaton.networking.CommChannel;
 
+/**
+ * Last state of the game that announces the winner.
+ */
 public class EndState extends StateAction {
 
     private final Player currentPlayer;

@@ -12,6 +12,10 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Optional;
 
+/**
+ * State during which a player draws a card, and executes the associated action if any.
+ * (typically, primes the explosion in the case of an exploding kitten)
+ */
 public class DrawState extends StateAction {
 
     private static final Logger logger = LogManager.getLogger(DrawState.class);

@@ -4,6 +4,10 @@ import fr.nperier.saussichaton.engine.GameState;
 import fr.nperier.saussichaton.engine.Player;
 import fr.nperier.saussichaton.engine.StateAction;
 
+/**
+ * State that occurs at the end of a turn, after drawing a card.
+ * Responsible for choosing whether to keep the same player for the next turn or to switch players.
+ */
 public class TurnEndState extends StateAction {
 
     private final Player currentPlayer;

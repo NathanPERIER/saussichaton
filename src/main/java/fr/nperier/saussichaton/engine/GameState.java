@@ -15,6 +15,9 @@ import fr.nperier.saussichaton.engine.states.turn.PlayerSwitchState;
 import fr.nperier.saussichaton.engine.states.turn.TurnBeginState;
 import fr.nperier.saussichaton.engine.states.turn.TurnEndState;
 
+/**
+ * Enum used to store all the available states.
+ */
 public enum GameState {
     INIT(InitState.class),
     PRE_DEAL(PreDealState.class),
