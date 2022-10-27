@@ -27,7 +27,7 @@ public class PostDealStateTests {
     public void testPostDealState() {
         final GameEngine engine = TestData.getEngine(c1, c2);
         final GameState res = engine.executeState(GameState.POST_DEAL);
-        assertEquals(res, GameState.PLAYER_SWITCH);
+        assertEquals(GameState.PLAYER_SWITCH, res);
         final DrawPile pile = engine.getResolver().getService(DrawPile.class);
         assertEquals(3, pile.size());
     }

@@ -37,11 +37,11 @@ public class TestCommunicator implements Communicator {
         return this;
     }
 
-    public Object fakePrompt(final TestPromptType type) {
+    private Object fakePrompt(final TestPromptType type) {
         if(this.results.size() == 0) {
-            throw new CommunicationException("No more prompts expected");
+            throw new CommunicationException("No more prompts expected, received " + type);
         }
-        final ExpectedResult res = this.results.pop();
+        final ExpectedResult res = this.results.removeLast();
         Assertions.assertEquals(type, res.type);
         if(!res.isInterrupt) {
             synchronized(this) {

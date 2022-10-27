@@ -1,16 +1,16 @@
-package fr.nperier.saussichaton.engine.states.begin;
+package fr.nperier.saussichaton.engine.states.explosion;
 
-import fr.nperier.saussichaton.engine.DrawPile;
 import fr.nperier.saussichaton.engine.GameEngine;
 import fr.nperier.saussichaton.engine.GameState;
+import fr.nperier.saussichaton.engine.Player;
 import fr.nperier.saussichaton.networking.TestCommunicator;
 import fr.nperier.saussichaton.test.TestData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class PreDealStateTests {
+public class EndStateTests {
 
     private final TestCommunicator c1 = new TestCommunicator();
     private final TestCommunicator c2 = new TestCommunicator();
@@ -22,12 +22,12 @@ public class PreDealStateTests {
     }
 
     @Test
-    public void testPreDealState() {
+    public void testDealState() {
         final GameEngine engine = TestData.getEngine(c1, c2);
-        final GameState res = engine.executeState(GameState.PRE_DEAL);
-        assertEquals(GameState.DEAL, res);
-        final DrawPile pile = engine.getResolver().getService(DrawPile.class);
-        assertEquals(45, pile.size());
+        final Player p1 = engine.getResolver().getNamedObject("currentPlayer");
+        p1.nextNeighbour().explode();
+        final GameState res = engine.executeState(GameState.END);
+        assertNull(res);
     }
 
 }

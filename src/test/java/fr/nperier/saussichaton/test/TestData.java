@@ -2,7 +2,6 @@ package fr.nperier.saussichaton.test;
 
 import fr.nperier.saussichaton.GlobalConstants;
 import fr.nperier.saussichaton.engine.GameEngine;
-import fr.nperier.saussichaton.engine.GameState;
 import fr.nperier.saussichaton.engine.Player;
 import fr.nperier.saussichaton.engine.loader.TestGameLoader;
 import fr.nperier.saussichaton.networking.Communicator;
@@ -14,7 +13,8 @@ import java.util.Set;
 public class TestData {
 
     public static final Set<String> EXTENSIONS = Set.of(GlobalConstants.BASE_EXTENSION);
-    public static final TestGameLoader LOADER = new TestGameLoader(2, EXTENSIONS);
+    public static final TestGameLoader LOADER2 = new TestGameLoader(2, EXTENSIONS);
+    public static final TestGameLoader LOADER3 = new TestGameLoader(3, EXTENSIONS);
 
     public static final Card EXPLODING_KITTEN;
     public static final Card DEFUSE;
@@ -31,7 +31,7 @@ public class TestData {
     public static final Card OVERWEIGHT_BIKINI_CAT;
 
     static {
-        final Map<String, Card> cards = LOADER.getRulesLoader().loadCards();
+        final Map<String, Card> cards = LOADER2.getRulesLoader().loadCards();
         EXPLODING_KITTEN = cards.get("exploding_kitten");
         DEFUSE = cards.get("defuse");
         ATTACK = cards.get("attack");
@@ -50,9 +50,20 @@ public class TestData {
     public static GameEngine getEngine(final Communicator c1, final Communicator c2) {
         final Player p1 = new Player("Player 1", c1);
         final Player p2 = new Player("Player 2", c2);
-        final GameEngine res = new GameEngine(LOADER);
+        final GameEngine res = new GameEngine(LOADER2);
         res.addPlayer(p1);
         res.addPlayer(p2);
+        return res;
+    }
+
+    public static GameEngine getEngine(final Communicator c1, final Communicator c2, final Communicator c3) {
+        final Player p1 = new Player("Player 1", c1);
+        final Player p2 = new Player("Player 2", c2);
+        final Player p3 = new Player("Player 3", c3);
+        final GameEngine res = new GameEngine(LOADER2);
+        res.addPlayer(p1);
+        res.addPlayer(p2);
+        res.addPlayer(p3);
         return res;
     }
 

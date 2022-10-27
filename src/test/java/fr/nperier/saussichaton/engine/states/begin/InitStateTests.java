@@ -24,7 +24,7 @@ public class InitStateTests {
     public void testInitState() {
         final GameEngine engine = TestData.getEngine(c1, c2);
         final GameState res = engine.executeState(GameState.INIT);
-        assertEquals(res, GameState.PRE_DEAL);
+        assertEquals(GameState.PRE_DEAL, res);
     }
 
 }

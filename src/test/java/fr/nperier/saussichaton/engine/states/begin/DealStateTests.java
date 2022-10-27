@@ -29,7 +29,7 @@ public class DealStateTests {
         final Player currentPlayer = engine.getResolver().getNamedObject("currentPlayer");
         pile.push(TestData.NOPE, 70);
         final GameState res = engine.executeState(GameState.DEAL);
-        assertEquals(res, GameState.POST_DEAL);
+        assertEquals(GameState.POST_DEAL, res);
         for(Player p : currentPlayer.getAllPlayers()) {
             assertEquals(8, p.getHand().size());
             assertEquals(1, p.getHand().stream().filter(TestData.DEFUSE::equals).count());
