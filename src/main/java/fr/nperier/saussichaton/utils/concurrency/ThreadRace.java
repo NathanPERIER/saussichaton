@@ -6,6 +6,13 @@ import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class manages races between threads, i.e. situations in which several threads may provide a
+ * value, but only one value is required. We want to get the value of the first thread that provides one,
+ * and prevent the other ones from continuing their treatments so that the main thread can resume
+ * as soon as possible.
+ * @param <T> the type of the result of the race
+ */
 public class ThreadRace<T> {
 
     private static final Logger logger = LogManager.getLogger(ThreadRace.class);
@@ -25,6 +32,11 @@ public class ThreadRace<T> {
         threads.add(new RacingThread<>(racer));
     }
 
+    /**
+     * Method that starts the thread race.
+     * Starts the control thread and waits for the value to be set.
+     * Then interrupts the racing threads (softly) and waits for the control thread to exit.
+     */
     public T go() {
         logger.trace("Starting thread race");
         Thread controlThread = new Thread(control);
@@ -46,6 +58,10 @@ public class ThreadRace<T> {
     }
 
 
+    /**
+     * Runnable for the control thread.
+     * It is responsible for starting the racing threads and waiting for them to finish.
+     */
     private static class ControlRunnable<R> implements Runnable {
 
         private final ThreadLock<R> lock;
@@ -71,6 +87,7 @@ public class ThreadRace<T> {
             }
             logger.trace("All threads have been joined, calling notify on the lock");
             synchronized(lock) {
+                // In case no racing thread yielded the value, we wake the waiting threads
                 lock.notifyAll();
             }
             logger.trace("Control thread exiting");

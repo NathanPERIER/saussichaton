@@ -10,10 +10,19 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.stream.Collectors;
 
+/**
+ * Utility class to interact with the content of the jar.
+ */
 public class JarUtils {
 
     private static final Logger logger = LogManager.getLogger(JarUtils.class);
 
+    /**
+     * Reads an object from a (JSON) file in the jar.
+     * @param path the path of the file in the jar
+     * @param type the type of the object that must be returned
+     * @throws JarException if there is a problem while reading or decoding the file
+     */
     public static <T> T readFromJar(final String path, final TypeReference<T> type) throws JarException {
         logger.debug("Attempting to read file at '" + path + "' in JAR");
         try (final InputStream in = JarUtils.class.getResourceAsStream(path)) {

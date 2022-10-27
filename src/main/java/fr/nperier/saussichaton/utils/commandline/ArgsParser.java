@@ -1,10 +1,13 @@
 package fr.nperier.saussichaton.utils.commandline;
 
-import fr.nperier.saussichaton.utils.Sanetisation;
+import fr.nperier.saussichaton.utils.Sanitisation;
 import lombok.Getter;
 
 import java.util.Optional;
 
+/**
+ * Parser for the arguments of the program.
+ */
 public class ArgsParser {
 
     public static final int DEFAULT_PORT = 6969;
@@ -31,7 +34,7 @@ public class ArgsParser {
         if(args.length <= i+1 || ! "-n".equals(args[i])) {
             throw new ArgsFormatException("Expected number of players");
         }
-        Optional<Integer> numPlayers = Sanetisation.sanitisePositiveInteger(args[i+1]);
+        Optional<Integer> numPlayers = Sanitisation.sanitisePositiveInteger(args[i+1]);
         if(numPlayers.isEmpty()) {
             throw new NumberFormatException("Bad number of players : " + args[i+1]);
         }
@@ -43,7 +46,7 @@ public class ArgsParser {
             if(args.length <= i) {
                 throw new ArgsFormatException("Expected value for the port argument");
             }
-            Optional<Integer> port = Sanetisation.sanitisePositiveInteger(args[i]);
+            Optional<Integer> port = Sanitisation.sanitisePositiveInteger(args[i]);
             if(port.isEmpty()) {
                 throw new NumberFormatException("Bad port number : " + args[i]);
             }

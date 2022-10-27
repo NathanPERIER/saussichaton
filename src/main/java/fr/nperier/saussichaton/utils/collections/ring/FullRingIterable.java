@@ -2,6 +2,10 @@ package fr.nperier.saussichaton.utils.collections.ring;
 
 import java.util.Iterator;
 
+/**
+ * Utility to iterate over a ring in the natural order.
+ * The iterable yields all the elements in the ring, including the element given as an argument (in the first position).
+ */
 public class FullRingIterable<T extends RingElement<T>> implements Iterable<T> {
 
     private final T start;

@@ -3,7 +3,10 @@ package fr.nperier.saussichaton.utils;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
-public class Sanetisation {
+/**
+ * Utility for sanitising parameters.
+ */
+public class Sanitisation {
 
     private static final Pattern POSITIVE_INTEGER_REG = Pattern.compile("^-?[0-9]+$");
 
