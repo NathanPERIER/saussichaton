@@ -20,10 +20,22 @@ import java.net.Socket;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+/**
+ * Implementation of a communicator that uses TCP to exchange data with the user.
+ * Works by sending and receiving JSON data.
+ *
+ * The messages have a type, which enables the client to perform the correct action.
+ *
+ * When a prompt request is sent, the client is expected to display the data and get a response.
+ * It then sends it back to the server and waits for an ack message.
+ * The server checks the response and decides whether or not it is valid, then sets a field in the ack message accordingly.
+ * If the client receives an ack message stating that the response is invalid, it is expected to prompt again.
+ */
 public class TCPCommunicator implements Communicator {
 
     private static final Logger logger = LogManager.getLogger(TCPCommunicator.class);
 
+    private static final String INTERRUPTED_CODE = "INTERRUPTED";
     private static final CommunicationDTO DTO_OK = CommunicationDTO.forType("ack").addField("valid", true);
     private static final CommunicationDTO DTO_ERR = CommunicationDTO.forType("ack").addField("valid", false);
 
@@ -37,24 +49,33 @@ public class TCPCommunicator implements Communicator {
         this.sock = sock;
     }
 
+    /**
+     * Writes some data to the network.
+     */
     protected void write(final CommunicationDTO data) {
         this.writer.println(data.toString());
         this.writer.flush();
     }
 
-    protected <T> T read(final TypeReference<T> type) {
+    /**
+     *
+     */
+    protected <T> T read(final TypeReference<T> type) throws CommunicationInterrupt, CommunicationException {
         try {
             while(true) {
                 final String response = this.reader.readLine();
-                if("INTERRUPTED".equals(response)) {
+                // If the prompt was interrupted, throw an error
+                if(INTERRUPTED_CODE.equals(response)) {
                     logger.trace("Read interrupted");
                     throw new CommunicationInterrupt();
                 }
+                // If the user disconnected, will basically stop the game
                 if(response == null) {
                     logger.info("Null response, user probably disconnected");
                     throw new CommunicationException("User disconnected");
                 } else {
                     try {
+                        // Try to decode the response with the right type, retry if it doesn't work
                         return JsonEncoder.decode(response, type);
                     } catch (SerialiseException e) {
                         logger.warn("Got incorrect JSON as a response, sending ERR", e);

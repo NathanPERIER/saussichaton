@@ -5,6 +5,12 @@ import lombok.Getter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * A read-only collection of results to a list prompt.
+ * @see ListResult
+ * @see ListPrompt
+ * @see fr.nperier.saussichaton.networking.Communicator#multiChoice(ListPrompt)
+ */
 @Getter
 public class ListResults<T> {
 

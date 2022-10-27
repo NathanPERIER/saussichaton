@@ -9,16 +9,24 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Object resulting of a prompt for a card play.
+ */
 public class CardPlayResult {
 
     @Getter
     private final Player player;
+    /**Indicates if the player chose to not play anything (if available)*/
     private boolean skipped;
+    /**Set to true if the player can't actually play any cards*/
     private boolean impossible;
+    /**The card play chosen by the player, if any*/
     @Setter @Getter
     private CardPlay cardPlay;
+    /**The initialised effect for the card play, if any*/
     @Setter @Getter
     private CardEffect effect;
+    /**The indexes of the cards in the hand of the player*/
     @Getter
     private List<Integer> indexes;
 

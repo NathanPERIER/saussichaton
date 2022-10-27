@@ -7,11 +7,20 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+/**
+ * Object to prompt one or several options in a list.
+ * @param <T> the type of the options in the list.
+ * @see fr.nperier.saussichaton.networking.Communicator#choice(ListPrompt)
+ * @see fr.nperier.saussichaton.networking.Communicator#multiChoice(ListPrompt)
+ */
 @Getter
 public class ListPrompt<T> {
 
+    /**The message to explain the reason of the prompt*/
     protected final String message;
+    /**The options in the list*/
     protected final List<T> options;
+    /**For each option, a boolean indicating if it is actually available for selection or not*/
     protected final List<Boolean> availability;
 
     protected ListPrompt(final String message, final List<T> options, final List<Boolean> availability) {

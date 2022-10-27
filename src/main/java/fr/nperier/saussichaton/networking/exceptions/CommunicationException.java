@@ -1,5 +1,8 @@
 package fr.nperier.saussichaton.networking.exceptions;
 
+/**
+ * General exception used for all communications.
+ */
 public class CommunicationException extends RuntimeException {
 
     public CommunicationException(final String message) {

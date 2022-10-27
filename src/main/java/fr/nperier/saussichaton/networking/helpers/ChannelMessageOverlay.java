@@ -4,6 +4,9 @@ import fr.nperier.saussichaton.engine.Player;
 import fr.nperier.saussichaton.networking.CommChannel;
 import fr.nperier.saussichaton.rules.data.Card;
 
+/**
+ * Helper to provide easier interactions with a communication channel.
+ */
 public class ChannelMessageOverlay {
 
     private final CommChannel channel;
@@ -27,15 +30,6 @@ public class ChannelMessageOverlay {
             for(Player p : player.getOtherPlayers()) {
                 builder.append("\n - ").append(p);
             }
-        }
-        player.getCommunicator().sendMessage(builder.toString());
-    }
-
-    public static void initialHand(Player player) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Your current hand is :");
-        for(Card c : player.getHand()) {
-            builder.append("\n - ").append(c);
         }
         player.getCommunicator().sendMessage(builder.toString());
     }

@@ -11,7 +11,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * A special kind of tree used to hold the card plays and browse them efficiently
+ * A special kind of read-only tree used to hold the card plays and browse them efficiently
  *
  * @see SearchTree
  */

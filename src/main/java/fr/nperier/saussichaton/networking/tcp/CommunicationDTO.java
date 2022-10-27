@@ -5,6 +5,10 @@ import fr.nperier.saussichaton.utils.io.JsonEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Object used to serialise data to JSON, in order to send it on the network.
+ * @see TCPCommunicator
+ */
 public class CommunicationDTO {
 
     private final Map<String, Object> fields;
@@ -13,6 +17,9 @@ public class CommunicationDTO {
         this.fields = new HashMap<>();
     }
 
+    /**
+     * Initialises the object with a type field that will allow the client to know how to treat the message.
+     */
     public static CommunicationDTO forType(final String type) {
         return new CommunicationDTO().addField("type", type);
     }
