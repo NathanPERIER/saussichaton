@@ -1,7 +1,7 @@
 package fr.nperier.saussichaton.networking.tcp;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import fr.nperier.saussichaton.errors.SerialiseException;
+import fr.nperier.saussichaton.utils.io.SerialiseException;
 import fr.nperier.saussichaton.networking.exceptions.CommunicationException;
 import fr.nperier.saussichaton.networking.Communicator;
 import fr.nperier.saussichaton.networking.exceptions.CommunicationInterrupt;

@@ -1,14 +1,13 @@
 package fr.nperier.saussichaton.rules.loader;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import fr.nperier.saussichaton.errors.ConfigurationException;
+import fr.nperier.saussichaton.utils.errors.ConfigurationException;
 import fr.nperier.saussichaton.rules.CardRegistry;
 import fr.nperier.saussichaton.rules.data.Card;
 import fr.nperier.saussichaton.rules.data.CardPlay;
 import fr.nperier.saussichaton.rules.dto.CardEntryDTO;
 import fr.nperier.saussichaton.rules.dto.CardPlayDTO;
 import fr.nperier.saussichaton.utils.io.JarUtils;
-import fr.nperier.saussichaton.utils.io.JsonEncoder;
 
 import java.util.AbstractMap;
 import java.util.List;

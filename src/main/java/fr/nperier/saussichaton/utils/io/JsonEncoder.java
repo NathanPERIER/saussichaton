@@ -3,7 +3,6 @@ package fr.nperier.saussichaton.utils.io;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import fr.nperier.saussichaton.errors.SerialiseException;
 
 public class JsonEncoder {
 

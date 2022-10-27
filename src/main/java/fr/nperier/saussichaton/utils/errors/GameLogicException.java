@@ -1,7 +1,7 @@
-package fr.nperier.saussichaton.errors;
+package fr.nperier.saussichaton.utils.errors;
 
 /**
- *  Error for when programmer is stoopid
+ *  Error related to the logic of the unwinding of the game
  */
 public class GameLogicException extends RuntimeException {
 

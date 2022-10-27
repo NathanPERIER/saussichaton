@@ -2,7 +2,7 @@ package fr.nperier.saussichaton.rules;
 
 import fr.nperier.saussichaton.engine.GameState;
 import fr.nperier.saussichaton.utils.collections.SearchTree;
-import fr.nperier.saussichaton.errors.ConfigurationException;
+import fr.nperier.saussichaton.utils.errors.ConfigurationException;
 import fr.nperier.saussichaton.rules.data.Card;
 import fr.nperier.saussichaton.rules.data.CardPlay;
 import fr.nperier.saussichaton.rules.loader.RulesLoader;

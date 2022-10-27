@@ -2,7 +2,7 @@ package fr.nperier.saussichaton.rules.data;
 
 import fr.nperier.saussichaton.engine.CardEffect;
 import fr.nperier.saussichaton.engine.GameState;
-import fr.nperier.saussichaton.errors.ConfigurationException;
+import fr.nperier.saussichaton.utils.errors.ConfigurationException;
 import fr.nperier.saussichaton.rules.CardEffectRegistry;
 import fr.nperier.saussichaton.rules.dto.CardEntryDTO;
 import lombok.Getter;

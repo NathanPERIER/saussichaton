@@ -1,6 +1,5 @@
 package fr.nperier.saussichaton.injection;
 
-import fr.nperier.saussichaton.errors.InjectionException;
 import fr.nperier.saussichaton.injection.annotations.AutoResolve;
 
 import java.lang.reflect.Constructor;
@@ -107,6 +106,16 @@ public class Resolver {
             return namedObjects.get(param.getName());
         }
         throw new InjectionException("Impossible to resolve parameter " + param.getName() + " of type " + param.getType());
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T> T getNamedObject(final String name) {
+        return (T) namedObjects.get(name);
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T> T getService(final Class<T> clazz) {
+        return (T) services.get(clazz);
     }
 
 }

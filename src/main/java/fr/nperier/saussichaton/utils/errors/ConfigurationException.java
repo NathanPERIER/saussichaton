@@ -1,5 +1,8 @@
-package fr.nperier.saussichaton.errors;
+package fr.nperier.saussichaton.utils.errors;
 
+/**
+ * Error related to the configuration of the game.
+ */
 public class ConfigurationException extends RuntimeException {
 
     public ConfigurationException(String message) {

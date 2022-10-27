@@ -1,6 +1,6 @@
 package fr.nperier.saussichaton.engine;
 
-import fr.nperier.saussichaton.errors.GameLogicException;
+import fr.nperier.saussichaton.utils.errors.GameLogicException;
 import fr.nperier.saussichaton.networking.Communicator;
 import fr.nperier.saussichaton.rules.data.Card;
 import fr.nperier.saussichaton.utils.collections.ring.FullRingIterable;
