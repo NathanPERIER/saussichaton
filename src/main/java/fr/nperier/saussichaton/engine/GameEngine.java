@@ -161,4 +161,13 @@ public class GameEngine {
         this.resolver.setNamedObject("cardPlayer", cardPlayer);
     }
 
+
+    // ===== For tests basically ===========================
+
+    public GameState executeState(final GameState state) {
+        setCurrentState(state);
+        final StateAction action = resolver.resolve(state.getActionClass());
+        return action.execute();
+    }
+
 }

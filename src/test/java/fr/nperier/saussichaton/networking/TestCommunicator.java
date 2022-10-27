@@ -15,10 +15,16 @@ import java.util.stream.Collectors;
 public class TestCommunicator implements Communicator {
 
     private final Deque<ExpectedResult> results;
-    private boolean interrupted = false;
+    private boolean interrupted;
 
     public TestCommunicator() {
         this.results = new ArrayDeque<>();
+        this.interrupted = false;
+    }
+
+    public void clear() {
+        this.interrupted = false;
+        this.results.clear();
     }
 
     public TestCommunicator expectPrompt(final TestPromptType type, final Object value) {
