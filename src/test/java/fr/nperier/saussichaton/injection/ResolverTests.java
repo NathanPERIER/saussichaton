@@ -1,6 +1,5 @@
 package fr.nperier.saussichaton.injection;
 
-import fr.nperier.saussichaton.errors.InjectionException;
 import fr.nperier.saussichaton.injection.annotations.AutoResolve;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
