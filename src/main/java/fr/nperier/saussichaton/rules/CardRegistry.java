@@ -10,6 +10,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+/**
+ * Read-only data structure that holds one instance of each card that exists in the game (in the loaded extensions).
+ */
 public class CardRegistry implements Iterable<Card> {
 
     private final Map<String, Card> entries;

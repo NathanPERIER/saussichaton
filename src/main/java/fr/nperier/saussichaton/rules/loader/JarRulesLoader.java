@@ -16,6 +16,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Rules loader that uses JSON files contained in the JAR to load the rules.
+ *
+ * @see RulesLoader
+ * @see CardEntryDTO
+ * @see CardPlayDTO
+ */
 public class JarRulesLoader implements RulesLoader {
 
     private static final String CARDS_PATH = "/game/cards.json";

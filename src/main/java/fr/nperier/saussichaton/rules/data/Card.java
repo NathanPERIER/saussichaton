@@ -10,6 +10,9 @@ import lombok.Getter;
 import java.util.Optional;
 import java.util.Set;
 
+/**
+ * Read-only object representing a card in the game.
+ */
 @Getter
 public class Card {
 
@@ -18,9 +21,13 @@ public class Card {
     private final String id;
     private final String name;
     private final String extension;
+    /**Fixed number of card of this type given to each player at the beginning of the game*/
     private final int givenAtStart;
+    /**Initial number of cards inserted in draw pile*/
     private final int initialNumber;
+    /**State at which the cards are inserted in the pile (basically before or after dealing the cards)*/
     private final GameState insertState;
+    /**An effect to trigger when the card is drawn (may be null if no effect)*/
     private final Class<? extends CardEffect> drawAction;
 
     public Card(final String id, final CardEntryDTO dto, int nPlayers) throws ConfigurationException {
@@ -44,15 +51,24 @@ public class Card {
         this.drawAction = opt.get();
     }
 
+    /**
+     * A card is greater than another if its name is lexicographically higher (used for sorting)
+     */
     public int compareTo(final Card card) {
         return id.compareTo(card.id);
     }
 
+    /**
+     * A card's hash is that of its (unique) identifier.
+     */
     @Override
     public int hashCode() {
         return id.hashCode();
     }
 
+    /**
+     * Two cards are equal if they have the same identifier.
+     */
     @Override
     public boolean equals(Object obj) {
         if(obj == null) {

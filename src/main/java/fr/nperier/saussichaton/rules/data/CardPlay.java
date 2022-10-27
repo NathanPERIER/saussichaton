@@ -15,9 +15,13 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Read-only object that links a set of cards that can be played at some specified states to an effect
+ */
 @Getter
 public class CardPlay {
 
+    /**The states at which a set of cards can effectively be played*/
     private static final Set<GameState> POSSIBLE_STATES = Set.of(
             GameState.PLAY_CHOICE,
             GameState.PLAY_OVER,
@@ -33,6 +37,7 @@ public class CardPlay {
         this.extension = dto.getExtension();
         this.cards = dto.getCards().entrySet().stream()
                 .map(e -> {
+                    // Check that the cards referenced by the configuration exist
                     Optional<Card> opt = cards.getCard(e.getKey());
                     if(opt.isEmpty()) {
                         throw new ConfigurationException("Unknown card " + e.getKey());
@@ -41,11 +46,13 @@ public class CardPlay {
                 })
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
         this.states = dto.getStates();
+        // Check that the states are valid
         for(GameState state : this.states) {
             if(!POSSIBLE_STATES.contains(state)) {
                 throw new ConfigurationException("Card play cannot occur at state " + state);
             }
         }
+        // Check that the effect is valid
         Optional<Class<? extends CardEffect>> opt = CardEffectRegistry.REGISTRY.getEffect(dto.getAction());
         if(opt.isEmpty()) {
             throw new ConfigurationException("Unknown card effect " + dto.getAction());
@@ -53,6 +60,9 @@ public class CardPlay {
         this.action = opt.get();
     }
 
+    /**
+     * Assesses whether or not this card play can be played at a certain game state.
+     */
     public boolean canPlay(final GameState state) {
         return states.contains(state);
     }

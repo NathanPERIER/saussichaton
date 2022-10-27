@@ -8,6 +8,9 @@ import lombok.Setter;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Object used as an intermediary to read a card play from a JSON file.
+ */
 @Getter
 public class CardPlayDTO {
 

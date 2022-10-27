@@ -10,6 +10,11 @@ import lombok.Setter;
 
 import java.util.Map;
 
+/**
+ * Object used as an intermediary to read a card from a JSON file.
+ *
+ * @see fr.nperier.saussichaton.rules.data.Card
+ */
 public class CardEntryDTO {
 
     @Getter @Setter

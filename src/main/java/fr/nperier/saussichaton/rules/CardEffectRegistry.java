@@ -13,6 +13,11 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.*;
 
+/**
+ * Read-only data structure that contains all the card effects defined in the code base.
+ *
+ * @see fr.nperier.saussichaton.engine.effects
+ */
 public class CardEffectRegistry {
 
     public static final CardEffectRegistry REGISTRY = new CardEffectRegistry();
