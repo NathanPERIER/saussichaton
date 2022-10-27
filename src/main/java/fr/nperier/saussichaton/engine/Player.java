@@ -12,6 +12,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Class that hold the data relevant to a player.
+ * The player is part of a ring of player (as an analogy to how players typically arrange themselves around a table).
+ * @see RingElement
+ */
 public class Player implements RingElement<Player> {
 
     /** Next player around the table */
@@ -99,6 +104,9 @@ public class Player implements RingElement<Player> {
         this.remainingTurns += n;
     }
 
+    /**
+     * Method called at the end of a turn.
+     */
     public void endTurn() {
         this.totalTurnsPlayed++;
         this.remainingTurns--;
@@ -107,11 +115,18 @@ public class Player implements RingElement<Player> {
         }
     }
 
+    /**
+     * Method called at the end of all the turns, resets the temporary counters.
+     */
     public void clearTurns() {
         this.turnsToPlay = 0;
         this.remainingTurns = 0;
     }
 
+    /**
+     * Retrieves the turns played within the current set of turns the player has to take
+     * (NOT the total number of turns since the beginning, this is {@link Player#getTotalTurnsPlayed()}
+     */
     public int getTurnsPlayed() {
         return turnsToPlay - remainingTurns;
     }
@@ -120,6 +135,7 @@ public class Player implements RingElement<Player> {
 
     /**
      * Method to call when the player loses the game.
+     * (btw I lost)
      *
      * @return the next player to play
      */

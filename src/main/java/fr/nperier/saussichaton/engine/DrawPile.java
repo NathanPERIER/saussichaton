@@ -7,6 +7,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
+/**
+ * Special collection of cards used to draw cards from.
+ * Ideally, this would be a wrapper that only exposes useful methods, but it is a low-priority task and time is a limited resource.
+ */
 public class DrawPile extends Stack<Card> {
 
     public DrawPile() {

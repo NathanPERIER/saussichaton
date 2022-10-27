@@ -17,6 +17,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+/**
+ * Class that manages the game.
+ */
 public class GameEngine {
 
     private final Logger logger = LogManager.getLogger(GameEngine.class);
@@ -93,6 +96,11 @@ public class GameEngine {
         return true;
     }
 
+    /**
+     * Method that runs the game.
+     * Essentially, executes the action associated with the current state and sets the state to
+     * the result of this action, until the action returns null and it is the end of the game.
+     */
     public void start() {
         try {
             while(this.currentState != null) {
@@ -109,7 +117,11 @@ public class GameEngine {
         }
     }
 
-
+    /**
+     * Initialises a card effect based on a (potentially null) class.
+     * Will create the effect via dependency injection and will attempt setting the target if the effect is targeted.
+     * @return optionally the initialised effect.
+     */
     public Optional<CardEffect> initEffect(final Class<? extends CardEffect> clazz) {
         if(clazz == null) {
             return Optional.empty();
