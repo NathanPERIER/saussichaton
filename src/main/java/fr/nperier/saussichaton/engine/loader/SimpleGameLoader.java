@@ -10,6 +10,9 @@ import org.apache.logging.log4j.Logger;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Game loader that uses a {@link JarRulesLoader} to load the rules.
+ */
 public class SimpleGameLoader implements GameLoader {
 
     private static final Logger logger = LogManager.getLogger(SimpleGameLoader.class);
