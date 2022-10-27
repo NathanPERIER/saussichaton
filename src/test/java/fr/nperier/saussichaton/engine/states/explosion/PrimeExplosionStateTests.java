@@ -54,14 +54,14 @@ public class PrimeExplosionStateTests {
 
     @Test
     public void testWithoutDefuse() {
-        p1.getHand().add(TestData.NOPE);
+        p1.giveCard(TestData.NOPE);
         final GameState res = engine.executeState(GameState.PRIME_EXPLOSION);
         assertEquals(GameState.EXPLODE, res);
     }
 
     @Test
     public void testOnlyDefuse() {
-        p1.getHand().add(TestData.DEFUSE);
+        p1.giveCard(TestData.DEFUSE);
         c1.expectPrompt(TestPromptType.MULTILIST, List.of(0));
         c1.expectPrompt(TestPromptType.INT, 2);
         final GameState res = engine.executeState(GameState.PRIME_EXPLOSION);
