@@ -2,6 +2,9 @@ package fr.nperier.saussichaton;
 
 import fr.nperier.saussichaton.engine.GameState;
 
+/**
+ * Important constants related to the game in general.
+ */
 public class GlobalConstants {
 
     public static final int MIN_PLAYERS = 2;

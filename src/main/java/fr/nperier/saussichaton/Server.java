@@ -19,10 +19,16 @@ import java.io.IOException;
 import java.net.*;
 import java.util.Set;
 
+/**
+ * Main class of the server, in charge of accepting the clients and starting the game.
+ */
 public class Server {
 
     private static final Logger logger = LogManager.getLogger(Server.class);
 
+    /**
+     * Enables verbose by lowering the logging level of the application.
+     */
     public static void verbose() {
         LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
         Configuration config = ctx.getConfiguration();
@@ -32,6 +38,9 @@ public class Server {
         logger.trace("Verbose enabled");
     }
 
+    /**
+     * Registers a server socket to ensure it is closed properly.
+     */
     public static Thread registerServerSocket(final ServerSocket serverSocket) {
         Thread hook = new Thread(() -> {
             if(!serverSocket.isClosed()) {
@@ -48,6 +57,9 @@ public class Server {
         return hook;
     }
 
+    /**
+     * Registers a socket to ensure it is closed properly.
+     */
     public static void registerSocket(final Socket socket) {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             if(!socket.isClosed()) {
@@ -86,6 +98,9 @@ public class Server {
         engine.start();
     }
 
+    /**
+     * Creates a game engine via a game loader and adds the players.
+     */
     private static GameEngine loadGame(final ArgsParser args) {
         GameLoader loader = new SimpleGameLoader(args.getNumPlayers(), Set.of(GlobalConstants.BASE_EXTENSION));
         GameEngine engine = new GameEngine(loader);
@@ -108,6 +123,9 @@ public class Server {
         return engine;
     }
 
+    /**
+     * Method that accepts a player and adds it to the engine.
+     */
     private static void acceptPlayer(final ServerSocket ss, final GameEngine engine) {
         Player player = null;
         while(player == null) {
