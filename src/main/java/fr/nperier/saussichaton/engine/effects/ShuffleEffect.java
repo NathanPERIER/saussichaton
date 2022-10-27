@@ -9,6 +9,9 @@ import fr.nperier.saussichaton.rules.CardEffectRegistry;
 
 import java.util.Optional;
 
+/**
+ * Effect that shuffles the draw pile.
+ */
 @CardEffectRegistry.RegisterEffect("shuffle")
 public class ShuffleEffect extends CardEffect {
 

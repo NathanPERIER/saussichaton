@@ -1,7 +1,6 @@
 package fr.nperier.saussichaton.engine.effects;
 
 import fr.nperier.saussichaton.engine.CardEffect;
-import fr.nperier.saussichaton.engine.GameEngine;
 import fr.nperier.saussichaton.engine.GameState;
 import fr.nperier.saussichaton.engine.Player;
 import fr.nperier.saussichaton.networking.CommChannel;
@@ -10,12 +9,15 @@ import fr.nperier.saussichaton.networking.prompt.ListResult;
 import fr.nperier.saussichaton.rules.CardEffectRegistry;
 import fr.nperier.saussichaton.rules.CardRegistry;
 import fr.nperier.saussichaton.rules.data.Card;
-import fr.nperier.saussichaton.utils.concurrency.ThreadLock;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Effect that allows a player to steal a card of their choice from another player, if the latter has one.
+ * @see StealCardEffect
+ */
 @CardEffect.Targeted
 @CardEffectRegistry.RegisterEffect("steal_designated")
 public class StealDesignatedEffect extends StealCardEffect {
@@ -31,6 +33,10 @@ public class StealDesignatedEffect extends StealCardEffect {
         this.channel = channel;
     }
 
+    /**
+     * Prompts the current player for a card in addition to the target.
+     * @see StealCardEffect#target
+     */
     @Override
     public boolean target() {
         if(!super.target()) {

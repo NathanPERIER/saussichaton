@@ -11,6 +11,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * Effect that allows a player to steal a random card from another player.
+ * @see StealCardEffect
+ */
 @CardEffect.Targeted
 @CardEffectRegistry.RegisterEffect("steal_random")
 public class StealRandomEffect extends StealCardEffect {

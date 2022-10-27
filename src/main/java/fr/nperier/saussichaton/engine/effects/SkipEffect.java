@@ -8,6 +8,9 @@ import fr.nperier.saussichaton.rules.CardEffectRegistry;
 
 import java.util.Optional;
 
+/**
+ * Effect that skips a turn of the current player.
+ */
 @CardEffectRegistry.RegisterEffect("skip")
 public class SkipEffect extends CardEffect {
 

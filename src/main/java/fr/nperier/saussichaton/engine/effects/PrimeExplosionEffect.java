@@ -9,6 +9,9 @@ import fr.nperier.saussichaton.rules.data.Card;
 
 import java.util.Optional;
 
+/**
+ * Effect that primes an explosion. Typically executed when drawing an exploding kitten.
+ */
 @CardEffectRegistry.RegisterEffect("prime_explosion")
 public class PrimeExplosionEffect extends CardEffect {
 

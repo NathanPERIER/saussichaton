@@ -16,6 +16,10 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+/**
+ * Effect triggered when playing cards or drawing a card.
+ * Typically instantiated by the engine via dependency injection.
+ */
 public abstract class CardEffect implements Resolvable {
 
     private static final Logger logger = LogManager.getLogger(CardEffect.class);
@@ -27,13 +31,26 @@ public abstract class CardEffect implements Resolvable {
         this.player = player;
     }
 
+    /**
+     * Method executed if the effect class is marked with {@link Targeted}.
+     * Allows the player to select options before executing the effect.
+     * @return true if it is possible to select the options, else false
+     */
     public boolean target() {
         logger.warn("Default implementation of bool target() called");
         return true;
     }
 
+    /**
+     * Method executed when the effect is applied.
+     * @return optionally a game state to modify the logical flow of the game.
+     */
     public abstract Optional<GameState> execute();
 
+    /**
+     * Method called when the effect is cancelled.
+     * @return optionally a game state to modify the logical flow of the game.
+     */
     public Optional<GameState> cancel() {
         return Optional.empty();
     }
@@ -50,15 +67,25 @@ public abstract class CardEffect implements Resolvable {
         return String.join(" + ", cards_repr);
     }
 
+    /**
+     * Name for this effect to be displayed.
+     * @param cards the cards that were used to trigger the effect.
+     */
     public String getName(final Map<Card, Integer> cards) {
         return constructName(cards, Card::toString);
     }
 
 
+    /**
+     * Annotation for card effects that are targeted (require execution of the {@link CardEffect#target()} method)
+     */
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.TYPE})
     public @interface Targeted { }
 
+    /**
+     * Annotation for the card effects that are interactive (require a prompt during execution).
+     */
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.TYPE})
     public @interface Interactive { }

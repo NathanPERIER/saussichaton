@@ -12,6 +12,10 @@ import fr.nperier.saussichaton.rules.data.Card;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Effect that allows a player to steal a card from another player, but the target can choose which card.
+ * @see StealCardEffect
+ */
 @CardEffect.Targeted
 @CardEffect.Interactive
 @CardEffectRegistry.RegisterEffect("steal_chosen")

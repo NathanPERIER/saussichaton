@@ -10,6 +10,10 @@ import fr.nperier.saussichaton.rules.data.Card;
 
 import java.util.Optional;
 
+/**
+ * Effect that can defuse a bomb, typically used in the {@link fr.nperier.saussichaton.engine.states.explosion.PrimeExplosionState}.
+ * Allows the player to replace the bomb anywhere in the pile.
+ */
 @CardEffect.Interactive
 @CardEffectRegistry.RegisterEffect("defuse")
 public class DefuseEffect extends CardEffect {

@@ -8,6 +8,9 @@ import fr.nperier.saussichaton.rules.CardEffectRegistry;
 
 import java.util.Optional;
 
+/**
+ * Effect that allows a player to skip all remaining turns and force the next player to take more turns.
+ */
 @CardEffectRegistry.RegisterEffect("attack")
 public class AttackEffect extends CardEffect {
 

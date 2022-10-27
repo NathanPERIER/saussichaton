@@ -8,6 +8,9 @@ import fr.nperier.saussichaton.rules.data.Card;
 
 import java.util.Map;
 
+/**
+ * Generic targeted effect that allows a player to steal cards from another player.
+ */
 public abstract class StealCardEffect extends CardEffect {
 
     protected Player target;
@@ -21,6 +24,10 @@ public abstract class StealCardEffect extends CardEffect {
         return super.getName(cards) + " on " + target;
     }
 
+    /**
+     * Targets a player to steal cards from.
+     * @return true if at least one player has cards to steal, else false.
+     */
     @Override
     public boolean target() {
         final ListPrompt<Player> targetPrompt = ListPrompt.<Player>create("Select a player to target")

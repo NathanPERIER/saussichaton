@@ -10,6 +10,9 @@ import fr.nperier.saussichaton.rules.data.Card;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Generic effect that allows a player to see a certain number of cards on top of the pile.
+ */
 public class PeekEffect extends CardEffect {
 
     private final CommChannel channel;
@@ -26,7 +29,7 @@ public class PeekEffect extends CardEffect {
 
     @Override
     public Optional<GameState> execute() {
-        List<Card> top = drawPile.peek(nCards);
+        List<Card> top = drawPile.peek(Math.min(nCards, drawPile.size()));
         StringBuilder builder = new StringBuilder();
         builder.append("The cards on top of the pile are :");
         for(Card c : top) {

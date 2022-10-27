@@ -9,6 +9,9 @@ import fr.nperier.saussichaton.rules.data.Card;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * Effect played on top of another staged effect, that can prevent this effect from happening.
+ */
 @CardEffectRegistry.RegisterEffect("nope")
 public class NopeEffect extends CardEffect {
 
@@ -21,6 +24,9 @@ public class NopeEffect extends CardEffect {
         this.isYup = canceled instanceof NopeEffect;
     }
 
+    /**
+     * When playing this effect, the nope cards become yup card.
+     */
     @Override
     public String getName(final Map<Card, Integer> cards) {
         if(this.isYup) {
@@ -37,6 +43,9 @@ public class NopeEffect extends CardEffect {
         return canceled.cancel();
     }
 
+    /**
+     * If this effect is canceled, actually execute the canceled effect.
+     */
     @Override
     public Optional<GameState> cancel() {
         return canceled.execute();
