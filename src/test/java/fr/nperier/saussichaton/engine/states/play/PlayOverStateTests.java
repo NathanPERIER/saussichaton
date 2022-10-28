@@ -6,6 +6,7 @@ import fr.nperier.saussichaton.engine.GameState;
 import fr.nperier.saussichaton.engine.Player;
 import fr.nperier.saussichaton.engine.effects.AttackEffect;
 import fr.nperier.saussichaton.engine.effects.NopeEffect;
+import fr.nperier.saussichaton.engine.effects.NopeEffectTests;
 import fr.nperier.saussichaton.engine.effects.StealRandomEffect;
 import fr.nperier.saussichaton.networking.TestCommunicator;
 import fr.nperier.saussichaton.networking.TestPromptType;
@@ -82,8 +83,29 @@ public class PlayOverStateTests {
         final GameState res = engine.executeState(GameState.PLAY_OVER);
         assertEquals(GameState.PLAY_OVER, res);
         assertSame(p2, engine.getResolver().getNamedObject("cardPlayer"));
+        assertEquals(2, p2.getHand().size());
         final CardEffect pending = engine.getResolver().getNamedObject("pendingCardEffect");
         assertEquals(NopeEffect.class, pending.getClass());
+        assertEquals("Nope", pending.getName(NopeEffectTests.NOPE_CARDS));
+    }
+    @Test
+    public void testPlaysNopeTwice() {
+        p1.giveCard(TestData.NOPE, 2);
+        p2.giveCard(TestData.CATTERMELON);
+        p2.giveCard(TestData.NOPE);
+        p2.giveCard(TestData.SKIP);
+        c2.expectPrompt(TestPromptType.MULTILIST, List.of(1));
+        c1.expectPrompt(TestPromptType.MULTILIST, List.of(0));
+        final GameState res1 = engine.executeState(GameState.PLAY_OVER);
+        assertEquals(GameState.PLAY_OVER, res1);
+        final GameState res2 = engine.executeState(GameState.PLAY_OVER);
+        assertEquals(GameState.PLAY_OVER, res2);
+        assertSame(p1, engine.getResolver().getNamedObject("cardPlayer"));
+        assertEquals(1, p1.getHand().size());
+        assertEquals(2, p2.getHand().size());
+        final CardEffect pending = engine.getResolver().getNamedObject("pendingCardEffect");
+        assertEquals(NopeEffect.class, pending.getClass());
+        assertEquals("Yup", pending.getName(NopeEffectTests.NOPE_CARDS));
     }
 
     @Test

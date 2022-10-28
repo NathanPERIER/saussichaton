@@ -35,6 +35,7 @@ public class StealChosenEffect extends StealCardEffect {
                 .build();
         ListResult<Card> res = target.getCommunicator().choice(prompt);
         player.giveCard(target.getHand().get(res.getIndex()));
+        target.removeCards(List.of(res.getIndex()));
         player.getCommunicator().sendMessage(target + " gave you " + res.getValue());
         channel.broadcastOthers(target + " gave a card to " + player, List.of(player.getName(), target.getName()));
         return Optional.empty();

@@ -11,6 +11,7 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Class that hold the data relevant to a player.
@@ -69,10 +70,9 @@ public class Player implements RingElement<Player> {
     }
 
     public void removeCards(final List<Integer> indexes) {
-        indexes.sort(Collections.reverseOrder());
-        for(int i : indexes) {
-            hand.remove(i);
-        }
+        indexes.stream()
+                .sorted(Collections.reverseOrder())
+                .forEach(i -> hand.remove(i.intValue()));
     }
 
     public Iterable<Player> getAllPlayers() {

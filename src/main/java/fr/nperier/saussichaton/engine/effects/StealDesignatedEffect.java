@@ -45,6 +45,7 @@ public class StealDesignatedEffect extends StealCardEffect {
         final ListPrompt<Card> cardPrompt = ListPrompt.<Card>create("Select a card to request")
                 .addAll(cards.stream()
                         .filter(c -> c.getDrawAction() == null)
+                        .sorted(Card::compareTo)
                         .collect(Collectors.toList())
                 ).build();
         final ListResult<Card> card = player.getCommunicator().choice(cardPrompt);
