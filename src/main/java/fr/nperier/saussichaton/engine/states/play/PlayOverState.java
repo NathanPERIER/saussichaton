@@ -85,6 +85,7 @@ public class PlayOverState extends StateAction {
                 synchronized(lock) {
                     if(lock.hasValue()) {
                         // If the lock already has a value, there is nothing left to do
+                        // This is very unlikely though, as the prompt will most likely have been interrupted
                         return;
                     }
                     // If the thread was able to arrive here, the player managed to play the nope

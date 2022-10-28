@@ -33,7 +33,7 @@ public class TestCommunicator implements Communicator {
     }
 
     public TestCommunicator expectInterrupt(final TestPromptType type, final long beforeMillis) {
-        this.results.push(new ExpectedResult(type, beforeMillis, false));
+        this.results.push(new ExpectedResult(type, beforeMillis, true));
         return this;
     }
 
